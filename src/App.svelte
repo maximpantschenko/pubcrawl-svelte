@@ -4,9 +4,12 @@ import Login from "./pages/Login.svelte"
 import Signup from "./pages/Signup.svelte"
 import Dashboard from "./pages/Dashboard.svelte";
 import Router from "svelte-spa-router";
-import WelcomeNavigator from "./components/WelcomeNavigator.svelte";
 import Home from "./pages/Home.svelte";
 import Discover from "./pages/Discover.svelte";
+import { PubcrawlService } from "./services/pubcrawl-service";
+import { setContext } from "svelte";
+
+  setContext("PubcrawlService", new PubcrawlService("http://localhost:4000"));
 
   let routes = {
     "/": Main,

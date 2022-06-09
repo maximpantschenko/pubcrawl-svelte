@@ -1,13 +1,22 @@
 <script lang="ts">
   import { push } from "svelte-spa-router";
+  import { getContext } from "svelte";
 
   let firstName = "";
   let lastName = "";
   let email = ""
   let password = "";
+  let errorMessage = "";
+
+  const pubcrawlService = getContext("PubcrawlService");
 
   async function signup() {
-    push("/login");
+    let success = await pubcrawlService.signup(firstName, lastName, email, password)
+    if (success) {
+      push("/login");
+    } else {
+      errorMessage = "Error Trying to sign up";
+    }
   }
 </script>
 
@@ -36,3 +45,8 @@
       <button class="button is-link">Sign Up</button>
     </div>
 </form>
+{#if errorMessage}
+  <div class="section">
+    {errorMessage}
+  </div>
+{/if}

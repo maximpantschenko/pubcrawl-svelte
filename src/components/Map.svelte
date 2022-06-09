@@ -4,6 +4,8 @@ import {LeafletMap} from '../services/leaflet-map';
 import 'leaflet/dist/leaflet.css'; 
 import {getContext, onMount} from "svelte";
 
+const pubcrawlService = getContext("PubcrawlService");
+
 const mapConfig = {
     location: {lat: 52.160858, lng: -7.152420},
     zoom: 8,

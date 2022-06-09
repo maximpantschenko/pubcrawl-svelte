@@ -1,11 +1,22 @@
 <script>
   import {push} from "svelte-spa-router";
+  import {getContext} from "svelte";
 
   let email = ""
   let password = "";
+  let errorMessage = "";
+
+  const pubcrawlService = getContext("PubcrawlService");
 
   async function login() {
-    push("/discover");
+    let success = await pubcrawlService.login(email, password)
+    if (success) {
+      push("/discover");
+    } else {
+      email = "";
+      password = "";
+      errorMessage = "Invalid Credentials";
+    }
   }
 </script>
 
@@ -19,6 +30,12 @@
     <input bind:value={password} class="input" id="password" name="password" placeholder="Enter Password" type="password">
   </div>
   <div class="field is-grouped">
-    <button class="button is-link">Log In</button>
+    <button class="button is-link">Login</button>
   </div>
 </form>
+
+{#if errorMessage}
+  <div class="section">
+    {errorMessage}
+  </div>
+{/if}

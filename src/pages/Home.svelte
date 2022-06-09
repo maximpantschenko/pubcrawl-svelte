@@ -1,8 +1,8 @@
 <script>
-import WelcomeNavigator from "../components/WelcomeNavigator.svelte";
+    import MainNavigator from "../components/MainNavigator.svelte";
 </script>
 
-<WelcomeNavigator/>
+<MainNavigator/>
 <div class="notification is-link">
     Hello from Home
 </div>
