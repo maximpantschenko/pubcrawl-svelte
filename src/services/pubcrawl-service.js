@@ -2,7 +2,7 @@ import axios from "axios";
 import {user} from "../stores";
 
 export class PubcrawlService {
-  baseUrl = "https://calm-cove-09278.herokuapp.com/";
+  baseUrl = "https://calm-cove-09278.herokuapp.com";
 
   constructor(baseUrl) {
     console.log("HELLO");
