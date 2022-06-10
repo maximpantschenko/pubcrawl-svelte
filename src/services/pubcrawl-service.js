@@ -2,11 +2,11 @@ import axios from "axios";
 import {user} from "../stores";
 
 export class PubcrawlService {
-  //baseUrl = "http://localhost:4000";
+  baseUrl = "https://calm-cove-09278.herokuapp.com/";
 
   constructor(baseUrl) {
     console.log("HELLO");
-    this.baseUrl = "http://localhost:4000";
+    this.baseUrl = baseUrl;
     console.log(this.baseUrl);
     const pubcrawlCredentials = localStorage.pubcrawl;
     if (pubcrawlCredentials) {
