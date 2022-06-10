@@ -1,7 +1,7 @@
 <script>
 import MainNavigator from "../components/WelcomeNavigator.svelte";
 import {LeafletMap} from '../services/leaflet-map';
-import 'leaflet/dist/leaflet.css'; 
+//import 'leaflet/dist/leaflet.css'; 
 import {getContext, onMount} from "svelte";
 
 const pubcrawlService = getContext("PubcrawlService");
