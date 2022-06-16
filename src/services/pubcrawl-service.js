@@ -2,7 +2,8 @@ import axios from "axios";
 import {user} from "../stores";
 
 export class PubcrawlService {
-  baseUrl = "https://calm-cove-09278.herokuapp.com";
+  //baseUrl = "https://calm-cove-09278.herokuapp.com";
+  baseUrl = "http://localhost:4000";
 
   constructor(baseUrl) {
     console.log("HELLO");
@@ -58,6 +59,15 @@ export class PubcrawlService {
       return true;
     } catch (error) {
       return false;
+    }
+  }
+
+  async getAllPubs(){
+    try{
+      const response = await axios.get(this.baseUrl + "/api/pubs");
+      return response.data;
+    } catch (error){
+      return [];
     }
   }
 }
