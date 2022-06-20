@@ -5,6 +5,7 @@ import Signup from "./pages/Signup.svelte"
 import Dashboard from "./pages/Dashboard.svelte";
 import Router from "svelte-spa-router";
 import Home from "./pages/Home.svelte";
+import EditPub from "./pages/EditPub.svelte";
 import Discover from "./pages/Discover.svelte";
 import { PubcrawlService } from "./services/pubcrawl-service";
 import { setContext } from "svelte";
@@ -20,9 +21,12 @@ import { setContext } from "svelte";
     "/home": Home,
     "/discover": Discover,
     "/logout": Main,
+    "/editpub/:pubid":EditPub,
   }
 </script>
 
 <div class="container">
   <Router {routes}/>
 </div>
+
+

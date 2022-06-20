@@ -6,7 +6,6 @@ export class PubcrawlService {
   baseUrl = "http://localhost:4000";
 
   constructor(baseUrl) {
-    console.log("HELLO");
     this.baseUrl = baseUrl;
     console.log(this.baseUrl);
     const pubcrawlCredentials = localStorage.pubcrawl;
@@ -29,7 +28,7 @@ export class PubcrawlService {
           email: email,
           token: response.data.token,
         });
-        localStorage.donation = JSON.stringify({email: email, token: response.data.token});
+        localStorage.pubcrawl = JSON.stringify({email:email, token:response.data.token});
         return true;
       }
       return false;
@@ -44,7 +43,7 @@ export class PubcrawlService {
       token: "",
     });
     axios.defaults.headers.common["Authorization"] = "";
-    localStorage.removeItem("donation");
+    localStorage.removeItem("pubcrawl");
   }
 
   async signup(firstName, lastName, email, password) {
@@ -68,6 +67,32 @@ export class PubcrawlService {
       return response.data;
     } catch (error){
       return [];
+    }
+  }
+
+  async getPubById(id){
+    try{
+      const response = await axios.get(this.baseUrl + "/api/pubs/"+id);
+      return response.data;
+    } catch (error){
+      return false;
+    }
+  }
+
+  async updatePub(name, city, country, lat, lng, img) {
+    try {
+      const pubDetails = {
+        name: name,
+        city: city,
+        country: country,
+        lat: lat,
+        lng: lng,
+        img: img,
+      };
+      await axios.post(this.baseUrl + "/api/pub", userDetails);
+      return true;
+    } catch (error) {
+      return false;
     }
   }
 }
