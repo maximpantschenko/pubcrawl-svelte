@@ -79,9 +79,10 @@ export class PubcrawlService {
     }
   }
 
-  async updatePub(name, city, country, lat, lng, img) {
+  async updatePub(pubid, name, city, country, lat, lng, img) {
     try {
       const pubDetails = {
+        pubid: pubid,
         name: name,
         city: city,
         country: country,
@@ -89,7 +90,7 @@ export class PubcrawlService {
         lng: lng,
         img: img,
       };
-      await axios.post(this.baseUrl + "/api/pub", userDetails);
+      await axios.post(this.baseUrl + "/api/updatepub/"+pubDetails.pubid, pubDetails);
       return true;
     } catch (error) {
       return false;

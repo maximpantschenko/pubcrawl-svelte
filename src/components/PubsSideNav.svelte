@@ -7,9 +7,14 @@ import { latLng } from 'leaflet';
 
     const pubcrawlService = getContext("PubcrawlService");
     let pubs = [];
+    let shortPubs = [];
+    let shortLat;
+    let shortLng;
 
     onMount(async () =>{
         pubs = await pubcrawlService.getAllPubs();
+        shortPubs = pubs;
+        shortenLocations(shortPubs);
     });
 
     async function getClickedPub(getPub){
@@ -17,9 +22,22 @@ import { latLng } from 'leaflet';
             pub: getPub,
         });
     }
+
+    function shortenCoordinate(getCoordinate, maxLength){
+        return getCoordinate.substring(0,maxLength);
+    }
+
+    function shortenLocations(getPubs){
+        getPubs.forEach(function(item, index){
+            if(item.lat.indexOf('-',0)!=-1) item.lat=shortenCoordinate(item.lat,(item.lat.indexOf('.', 0)+4));
+            else item.lat=shortenCoordinate(item.lat,(item.lat.indexOf('.', 0)+2));
+            if(item.lng.indexOf('-',0)!=-1) item.lng=shortenCoordinate(item.lng,(item.lat.indexOf('.', 0)+4));
+            else item.lng=shortenCoordinate(item.lng,(item.lat.indexOf('.', 0)+2));
+        })
+    }
 </script>
 
-{#each pubs as pub}
+{#each shortPubs as pub}
     <div class="card">
         <div class="card-image">
             <figure class="image is-2by1">

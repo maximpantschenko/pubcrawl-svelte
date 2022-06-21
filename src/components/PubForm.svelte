@@ -4,18 +4,20 @@
 
   export let pubid;
 
+  let id = "";
   let name = "";
   let city = "";
   let country = "";
-  let lat = "";
-  let lng = "";
+  export let lat = "";
+  export let lng = "";
   let img = "";
 
   let errorMessage = "";
 
   const pubcrawlService = getContext("PubcrawlService");
   async function getPub(){
-    let pub = await pubcrawlService.getPubById(pubid);
+    let pub = await pubcrawlService.getPubById(pubid); 
+    id = pubid;
     name = pub.name;
     city = pub.city;
     country = pub.country;
@@ -30,8 +32,13 @@
     }
   }
 
+  export function setLocations(_lat,_lng){
+    lat=_lat;
+    lng=_lng;
+  }
+
   async function updatePub(){
-    let success = await pubcrawlService.updatePub(name, city, country, lat, lng, img);
+    let success = await pubcrawlService.updatePub(pubid, name, city, country, lat, lng, img);
     if(success){
       push("/discover");
     }else{
@@ -47,35 +54,35 @@
     <div class="field">
       <label class="label">Name</label>
       <div class="control">
-        <input class="input" type="text" placeholder="Enter Name" name="name" value="{name}">
+        <input class="input" type="text" placeholder="Enter Name" name="name" bind:value="{name}">
       </div>
     </div>
   
     <div class="field">
       <label class="label">City</label>
       <div class="control">
-        <input class="input" type="text" placeholder="Enter City" name="city" value="{city}">
+        <input class="input" type="text" placeholder="Enter City" name="city" bind:value="{city}">
       </div>
     </div>
   
     <div class="field">
       <label class="label">Country</label>
       <div class="control">
-        <input class="input" type="text" placeholder="Enter Country" name="country" value="{country}">
+        <input class="input" type="text" placeholder="Enter Country" name="country" bind:value="{country}">
       </div>
     </div>
   
     <div class="field">
       <label class="label">Latitude</label>
       <div class="control">
-        <input class="input" type="text" placeholder="Latitude" name="lat" value="{lat}">
+        <input class="input input-lat" type="text" placeholder="Latitude" name="lat" bind:value="{lat}">
       </div>
     </div>
   
     <div class="field">
       <label class="label">Longitude</label>
       <div class="control">
-        <input class="input" type="text" placeholder="Longitude" name="lng" value="{lng}">
+        <input class="input input-lng" type="text" placeholder="Longitude" name="lng" bind:value="{lng}">
       </div>
     </div>
   
