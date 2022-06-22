@@ -27,9 +27,10 @@
     
 <MainNavigator/>
 
+<p>Publist id: {params.publistid}</p>
 <div class="columns">
     <div class="column has-text-centerd relative md:fixed sm:w-full md:w-10/12 p-2 h-screen">
-        <PubForm bind:lat={clickedLat} bind:lng={clickedLng} id={params.pubid} newpub={false}/>
+        <PubForm bind:lat={clickedLat} bind:lng={clickedLng} id={params.publistid} newpub={true}/>
     </div>
     <div class="column has-text-centered is-half hidden md:block w-full md:w-2/12 ml-auto map-side is-95vh">
         <Map bind:this={pubsMap} on:clickedLocations={setLocations} markersVisible={false} publistid={null}/>

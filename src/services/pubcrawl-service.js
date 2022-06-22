@@ -1,4 +1,5 @@
 import axios from "axios";
+import { latLng } from "leaflet";
 import {user} from "../stores";
 
 export class PubcrawlService {
@@ -75,6 +76,23 @@ export class PubcrawlService {
       const response = await axios.get(this.baseUrl + "/api/pubs/"+id);
       return response.data;
     } catch (error){
+      return false;
+    }
+  }
+
+  async createPub(publistid, name, city, country, lat, lng, img){
+    try{
+      const pubDetails = {
+        name: name,
+        city: city,
+        country: country,
+        lat: lat,
+        lng: lng,
+        img: img,
+      };
+      await axios.post(this.baseUrl + "/api/publists/"+publistid+"/createpub", pubDetails);
+      return true;
+    }catch(error){
       return false;
     }
   }

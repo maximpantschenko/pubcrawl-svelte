@@ -9,7 +9,7 @@ const pubcrawlService = getContext("PubcrawlService");
 const dispatch = createEventDispatcher();
 
 export let markersVisible = false;
-
+export let publistid;
 
 const mapConfig = {
     location: {lat: 52.160858, lng: -7.152420},
@@ -61,5 +61,24 @@ export function moveToPub(zoom, getLat,getLng){
 </script>
 
 <div class="box" id="map" style="height: 95vh">
-    Hier sollte die Karte sein!
+    {#if publistid != null}
+    <a href="/#/createpub/{publistid}">
+        <button id="addBarBtn" class="button is-primary leaflet-bottom leaflet-right">
+            <span class="icon is-small">
+                <i class="fa-solid fa-plus"></i>
+            </span>
+        </button>
+    </a>
+    {/if}
 </div>
+
+<style>
+    #addBarBtn{
+        z-index: 9999;
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
+        pointer-events: auto;
+        border-radius: 50%;
+    }
+</style>

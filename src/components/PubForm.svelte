@@ -2,9 +2,9 @@
   import {push} from "svelte-spa-router";
   import {getContext} from "svelte";
 
-  export let pubid;
+  export let id;
+  export let newpub;
 
-  let id = "";
   let name = "";
   let city = "";
   let country = "";
@@ -15,9 +15,9 @@
   let errorMessage = "";
 
   const pubcrawlService = getContext("PubcrawlService");
+
   async function getPub(){
-    let pub = await pubcrawlService.getPubById(pubid); 
-    id = pubid;
+    let pub = await pubcrawlService.getPubById(id); 
     name = pub.name;
     city = pub.city;
     country = pub.country;
@@ -38,7 +38,7 @@
   }
 
   async function updatePub(){
-    let success = await pubcrawlService.updatePub(pubid, name, city, country, lat, lng, img);
+    let success = await pubcrawlService.updatePub(id, name, city, country, lat, lng, img);
     if(success){
       push("/discover");
     }else{
@@ -46,10 +46,24 @@
     }
   }
 
-  getPub();
+  async function createPub(){
+    let success = await pubcrawlService.createPub(id, name, city, country, lat, lng, img);
+    if(success){
+      push("/discover");
+    }else{
+      errorMessage = "Couldn't Create the Pub";
+    }
+  }
+
+  async function updateOrCreate(){
+    if(!newpub) updatePub();
+    else createPub();
+  }
+
+  if(!newpub) getPub();
 </script>
 
-<form on:submit|preventDefault={updatePub}>
+<form on:submit|preventDefault={updateOrCreate}>
     <label>Enter Pub Details:</label>
     <div class="field">
       <label class="label">Name</label>
