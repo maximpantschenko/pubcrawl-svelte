@@ -63,7 +63,7 @@ export function moveToPub(zoom, getLat,getLng){
 <div class="box" id="map" style="height: 95vh">
     {#if publistid != null}
     <a href="/#/createpub/{publistid}">
-        <button id="addBarBtn" class="button is-primary leaflet-bottom leaflet-right">
+        <button id="addBarBtn" class="button is-primary leaflet-bottom leaflet-right" title="Add Pub">
             <span class="icon is-small">
                 <i class="fa-solid fa-plus"></i>
             </span>

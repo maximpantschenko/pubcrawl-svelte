@@ -27,7 +27,6 @@
     
 <MainNavigator/>
 
-<p>Publist id: {params.publistid}</p>
 <div class="columns">
     <div class="column has-text-centerd relative md:fixed sm:w-full md:w-10/12 p-2 h-screen">
         <PubForm bind:lat={clickedLat} bind:lng={clickedLng} id={params.publistid} newpub={true}/>

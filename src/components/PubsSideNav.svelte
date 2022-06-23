@@ -1,5 +1,5 @@
 <script>
-import { latLng } from 'leaflet';
+import {push} from "svelte-spa-router";
 
     import {createEventDispatcher,getContext, onMount} from 'svelte';
 
@@ -12,6 +12,8 @@ import { latLng } from 'leaflet';
     let shortPubs = [];
     let shortLat;
     let shortLng;
+
+    let errorMessage = "";
 
     onMount(async () =>{
         pubs = await pubcrawlService.getAllPubs();
@@ -36,6 +38,17 @@ import { latLng } from 'leaflet';
             if(item.lng.indexOf('-',0)!=-1) item.lng=shortenCoordinate(item.lng,(item.lat.indexOf('.', 0)+4));
             else item.lng=shortenCoordinate(item.lng,(item.lat.indexOf('.', 0)+2));
         })
+    }
+
+    async function deletePub(id){
+        console.log(id);
+        let success = await pubcrawlService.deletePub(id);
+        if(success){
+            //push("/discover");
+            location.reload();
+        }else{
+            errorMessage = "Couldn't delete the Pub";
+        }
     }
 </script>
 
@@ -77,8 +90,18 @@ import { latLng } from 'leaflet';
         </div>
         <footer class="card-footer">
             <!--<a href="#" class="card-footer-item">Save</a>-->
-            <a href="/#/editpub/{pub._id}" class="card-footer-item">Edit</a>
-            <a href="#" class="card-footer-item">Delete</a>
+            <a href="/#/editpub/{pub._id}" class="card-footer-item button is-primary">Edit</a>
+            <button on:click={() => {deletePub(pub._id)}} class="card-footer-item button is-danger">Delete</button>
+            <!--<div class="field is-grouped is-grouped-right">
+                <p class="control">
+                    <button on:click={deletePub} class="button is-danger">Delete</button>
+                </p>
+                <p class="control">
+                    <a href="/#/editpub/{pub._id}" class="card-footer-item"> 
+                        <button class="button is-primary">Edit</button>
+                    </a>
+                </p>
+              </div>-->
         </footer>
     </div>
 {/each}

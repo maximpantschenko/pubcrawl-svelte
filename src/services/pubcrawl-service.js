@@ -80,7 +80,7 @@ export class PubcrawlService {
     }
   }
 
-  async createPub(publistid, name, city, country, lat, lng, img){
+  async createPub(publistid, name, city, country, lat, lng, img, file){
     try{
       const pubDetails = {
         name: name,
@@ -90,14 +90,34 @@ export class PubcrawlService {
         lng: lng,
         img: img,
       };
-      await axios.post(this.baseUrl + "/api/publists/"+publistid+"/createpub", pubDetails);
+      if(file!=null) pubDetails.file = file[0];
+
+      const url = this.baseUrl + "/api/publists/"+publistid+"/createpub";
+
+      //await axios.post(this.baseUrl + "/api/publists/"+publistid+"/createpub", pubDetails);
+      await axios({
+        method: 'post',
+        url: url,
+        data: pubDetails,
+        headers: {'Content-Type': 'multipart/form-data' }
+      })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+
       return true;
     }catch(error){
+      console.log(error);
       return false;
     }
   }
 
-  async updatePub(pubid, name, city, country, lat, lng, img) {
+  async updatePub(pubid, name, city, country, lat, lng, img, file) {
     try {
       const pubDetails = {
         pubid: pubid,
@@ -108,10 +128,40 @@ export class PubcrawlService {
         lng: lng,
         img: img,
       };
-      await axios.post(this.baseUrl + "/api/updatepub/"+pubDetails.pubid, pubDetails);
+      if(file!=null) pubDetails.file=file[0];
+
+      const url = this.baseUrl + "/api/updatepub/"+pubDetails.pubid;
+
+      //await axios.post(this.baseUrl + "/api/updatepub/"+pubDetails.pubid, pubDetails);
+      await axios({
+        method: 'post',
+        url: url,
+        data: pubDetails,
+        headers: {'Content-Type': 'multipart/form-data' }
+      })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  async deletePub(pubid) {
+    try {
+      await axios.delete(this.baseUrl + "/api/pubs/"+pubid);
       return true;
     } catch (error) {
       return false;
     }
   }
+
+
 }

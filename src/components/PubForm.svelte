@@ -1,6 +1,7 @@
 <script>
   import {push} from "svelte-spa-router";
   import {getContext} from "svelte";
+  import jq from 'jquery';
 
   export let id;
   export let newpub;
@@ -15,6 +16,20 @@
   let errorMessage = "";
 
   const pubcrawlService = getContext("PubcrawlService");
+
+  let fileInput = null;
+  let files = null;
+
+  jq( document ).ready(function() {
+    fileInput = jq(".file-input");
+    fileInput.change(setImageFileName);
+  });
+  
+  async function setImageFileName(){
+    if(fileInput.prop("files").length > 0){
+      jq(".file-name").text(jq(".file-input").prop("files")[0].name);
+    }
+  }
 
   async function getPub(){
     let pub = await pubcrawlService.getPubById(id); 
@@ -38,7 +53,7 @@
   }
 
   async function updatePub(){
-    let success = await pubcrawlService.updatePub(id, name, city, country, lat, lng, img);
+    let success = await pubcrawlService.updatePub(id, name, city, country, lat, lng, img, files);
     if(success){
       push("/discover");
     }else{
@@ -47,7 +62,7 @@
   }
 
   async function createPub(){
-    let success = await pubcrawlService.createPub(id, name, city, country, lat, lng, img);
+    let success = await pubcrawlService.createPub(id, name, city, country, lat, lng, img, files);
     if(success){
       push("/discover");
     }else{
@@ -60,10 +75,42 @@
     else createPub();
   }
 
+  async function deletePub(){
+    console.log(id);
+    let success = await pubcrawlService.deletePub(id);
+    if(success){
+      push("/discover");
+    }else{
+      errorMessage = "Couldn't delete the Pub";
+    }
+  }
+
   if(!newpub) getPub();
 </script>
 
 <form on:submit|preventDefault={updateOrCreate}>
+    <div class="card">
+      <div class="card-image">
+        <figure class="image">
+          <img src={img} alt="Image of Pub">
+        </figure>
+      </div>
+      <div id="file-select" class="file has-name is-fullwidth">
+        <label class="file-label"> <input class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg" bind:files>
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              Choose a file…
+            </span>
+           </span>
+          <span class="file-name"></span>
+        </label>
+        <!--<button type="submit" class="button is-info">Upload</button>-->
+      </div>
+    </div>
+
     <label>Enter Pub Details:</label>
     <div class="field">
       <label class="label">Name</label>
@@ -100,7 +147,22 @@
       </div>
     </div>
   
-    <button class="button is-primary">Save</button>
+    
+
+    <div class="field is-grouped is-grouped-right">
+      <p class="control">
+        <button class="button is-light">Cancel</button>
+      </p>
+      {#if !newpub}
+        <p class="control">
+          <button on:click={deletePub} class="button is-danger">Delete</button>
+        </p>
+      {/if}
+      <p class="control">
+        <button type="submit" class="button is-primary">Save</button>
+      </p>
+    </div>
+
   </form>
 
 {#if errorMessage}
