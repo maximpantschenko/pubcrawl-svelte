@@ -4,6 +4,7 @@ import {LeafletMap} from '../services/leaflet-map';
 import 'leaflet/dist/leaflet.css'; 
 import jq from 'jquery';
 import {createEventDispatcher, getContext, onMount} from "svelte";
+import PubInfo, {openPubInfo} from './PubInfo.svelte';
 
 const pubcrawlService = getContext("PubcrawlService");
 const dispatch = createEventDispatcher();
@@ -34,8 +35,11 @@ onMount(async () => {
 });
 
 export function addPubMarker(pub) {
-    const pubStr = `${pub.name}`;
-    map.addMarker({lat: pub.lat, lng: pub.lng}, pubStr, "Pubs");
+    //const pubStr = `${pub.name}`;
+    const pubStr = `<button id="pubInfoBtn" class="js-modal-trigger leaflet-top leaflet-left" data-target="modal-js-example">open pub</button>`;
+    //.setContent('<p>Hello world!<br />This is a nice popup.</p>');
+    const marker = map.addMarker({lat: pub.lat, lng: pub.lng}, pubStr, "Pubs");
+    marker.on('click', () => {openPubInfo(pub)});
     map.moveTo(4, {lat: pub.lat, lng: pub.lng});
 }
 
@@ -61,6 +65,9 @@ export function moveToPub(zoom, getLat,getLng){
 </script>
 
 <div class="box" id="map" style="height: 95vh">
+    <div id="pubInfo">   
+        <PubInfo/>
+    </div>
     {#if publistid != null}
     <a href="/#/createpub/{publistid}">
         <button id="addBarBtn" class="button is-primary leaflet-bottom leaflet-right" title="Add Pub">
@@ -74,11 +81,27 @@ export function moveToPub(zoom, getLat,getLng){
 
 <style>
     #addBarBtn{
-        z-index: 9999;
+        z-index: 9991;
         position: absolute;
         bottom: 50px;
         right: 50px;
         pointer-events: auto;
         border-radius: 50%;
+    }
+
+    #pubInfo{
+        z-index: 9999;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        pointer-events: auto;
+    }
+
+    #pubInfoBtn{
+        z-index: 9998;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        pointer-events: auto;
     }
 </style>

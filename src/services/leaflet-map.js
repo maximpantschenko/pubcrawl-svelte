@@ -67,10 +67,11 @@ export class LeafletMap {
   addMarker(location, popupText = "", layerTitle = "default") {
     let group = {};
     let marker = L.marker([location.lat, location.lng]);
+    //marker.on('click', () => {console.log("marker was clicked")});
     if (popupText) {
       var popup = L.popup({autoClose: false, closeOnClick: true});
-      popup.setContent(popupText);
-      marker.bindPopup(popup);
+      //popup.setContent(popupText);
+      //marker.bindPopup(popup);
     }
     if (!this.overlays[layerTitle]) {
       group = L.layerGroup([]);
@@ -80,6 +81,7 @@ export class LeafletMap {
       group = this.overlays[layerTitle];
     }
     marker.addTo(group);
+    return marker;
   }
 
   invalidateSize() {
