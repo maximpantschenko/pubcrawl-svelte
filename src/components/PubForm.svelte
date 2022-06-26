@@ -1,6 +1,6 @@
 <script>
   import {push} from "svelte-spa-router";
-  import {getContext} from "svelte";
+  import {getContext, onMount} from "svelte";
   import jq from 'jquery';
 
   export let id;
@@ -13,6 +13,10 @@
   export let lng = "";
   let img = "";
 
+  let categoriesMusic = [];
+
+  let categoriesMusicSelectable = [];
+
   let errorMessage = "";
 
   const pubcrawlService = getContext("PubcrawlService");
@@ -20,10 +24,34 @@
   let fileInput = null;
   let files = null;
 
-  jq( document ).ready(function() {
-    fileInput = jq(".file-input");
-    fileInput.change(setImageFileName);
-  });
+
+  onMount(async () => {
+      console.log("on mount first");
+      categoriesMusicSelectable = await pubcrawlService.getCategoriesMusic();
+      //const pubs = await pubcrawlService.getAllPubs();
+      fileInput = jq(".file-input");
+      fileInput.change(setImageFileName);
+
+      const categoryMusic = jq(".category-music-dropdown");
+      categoryMusic.click(function() {
+          if(categoryMusic.hasClass("is-active")) categoryMusic.removeClass("is-active");
+          else categoryMusic.addClass("is-active");
+      });
+
+      jq( document ).ready(function() {
+        console.log("document ready first");
+        const categoryMusicItems = jq(".category-music-table .category-music-item");
+        categoryMusicItems.each(function( index ) {
+          const item = jq(this);
+          initCategoriesOfPub(item);
+          jq(item).click(function() {
+            setSelectStatusCategoriesMusic(item);
+            setCategoriesOfPub(categoryMusicItems);
+          });
+        });
+      });
+    
+    });
   
   async function setImageFileName(){
     if(fileInput.prop("files").length > 0){
@@ -31,7 +59,36 @@
     }
   }
 
+  async function setSelectStatusCategoriesMusic(item){
+    if(item.hasClass("is-primary")) {
+      item.removeClass("is-primary").addClass("is-danger");
+      item.find(".category-music-icon").removeClass("fa-plus").addClass("fa-minus");
+      categoriesMusic.push(item.attr("data-id"));
+    } else {
+      item.removeClass("is-danger").addClass("is-primary");
+      item.find(".category-music-icon").removeClass("fa-minus").addClass("fa-plus");
+    }
+  }
+
+  async function initCategoriesOfPub(item){
+    for(var i=0; i<categoriesMusic.length; i++){
+      if(categoriesMusic[i]==item.attr("data-id")){
+        item.removeClass("is-primary").addClass("is-danger");
+        item.find(".category-music-icon").removeClass("fa-plus").addClass("fa-minus");
+      }
+    }
+  }
+
+  async function setCategoriesOfPub(allCategories){
+    categoriesMusic = [];
+    allCategories.each(function( index ) {
+      const item = jq(this);
+      if(item.hasClass("is-danger")) categoriesMusic.push(item.attr("data-id"));
+    });
+  }
+
   async function getPub(){
+    console.log("getPub first");
     let pub = await pubcrawlService.getPubById(id); 
     name = pub.name;
     city = pub.city;
@@ -39,7 +96,7 @@
     lat = pub.lat;
     lng = pub.lng;
     img = pub.img;
-
+    pub.categoriesMusic.forEach(element => categoriesMusic.push(element._id));
     if(!pub){
       errorMessage = "Couldn't find pub";
     }else{
@@ -53,7 +110,9 @@
   }
 
   async function updatePub(){
-    let success = await pubcrawlService.updatePub(id, name, city, country, lat, lng, img, files);
+    console.log("function updatePub catagoriesMusic");
+    console.log(categoriesMusic);
+    let success = await pubcrawlService.updatePub(id, name, city, country, lat, lng, img, categoriesMusic, files);
     if(success){
       push("/discover");
     }else{
@@ -62,7 +121,9 @@
   }
 
   async function createPub(){
-    let success = await pubcrawlService.createPub(id, name, city, country, lat, lng, img, files);
+    console.log("function create catagoriesMusic");
+    console.log(categoriesMusic);
+    let success = await pubcrawlService.createPub(id, name, city, country, lat, lng, img, categoriesMusic, files);
     if(success){
       push("/discover");
     }else{
@@ -76,7 +137,6 @@
   }
 
   async function deletePub(){
-    console.log(id);
     let success = await pubcrawlService.deletePub(id);
     if(success){
       push("/discover");
@@ -132,6 +192,42 @@
         <input class="input" type="text" placeholder="Enter Country" name="country" bind:value="{country}">
       </div>
     </div>
+
+    <div class="field">
+      <label class="label">Category Music</label>
+      <div class="control"> 
+        <div class="category-music-dropdown dropdown">
+          <div class="dropdown-trigger">
+            <span class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+              <span>Music Category</span>
+              <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </span>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+            <div class="dropdown-content" style="overflow:scroll;height:200px">
+              <table class="table category-music-table is-fullwidth">
+                <tbody>
+                  {#each categoriesMusicSelectable as music}
+                    <tr>
+                      <td>{music.name}</td>
+                      <td>
+                        <span class="button category-music-item is-small is-primary" data-id="{music._id}">
+                          <span class="icon is-small">
+                            <i class="category-music-icon fas fa-plus"></i>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   
     <div class="field">
       <label class="label">Latitude</label>
@@ -170,3 +266,7 @@
     {errorMessage}
   </div>
 {/if}
+
+<style>
+ 
+</style>

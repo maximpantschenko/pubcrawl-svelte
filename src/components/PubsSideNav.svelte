@@ -1,5 +1,6 @@
 <script>
 import {push} from "svelte-spa-router";
+import standardImage from "/src/assets/svelte.png"
 
     import {createEventDispatcher,getContext, onMount} from 'svelte';
 
@@ -56,7 +57,11 @@ import {push} from "svelte-spa-router";
     <div class="card">
         <div class="card-image">
             <figure class="image is-2by1">
-            <img src="{pub.img}" alt="Placeholder image">
+                {#if pub.img}
+                    <img src="{pub.img}" alt="Placeholder image">
+                {:else}
+                    <img src="/src/assets/logo-on-frame.png" alt="Placeholder image">
+                {/if}
             </figure>
         </div>
         <div class="card-content">
@@ -90,6 +95,7 @@ import {push} from "svelte-spa-router";
         </div>
         <footer class="card-footer">
             <!--<a href="#" class="card-footer-item">Save</a>-->
+            <a href="/#/pub/{pub._id}" class="card-footer-item button">Details</a>
             <a href="/#/editpub/{pub._id}" class="card-footer-item button is-primary">Edit</a>
             <button on:click={() => {deletePub(pub._id)}} class="card-footer-item button is-danger">Delete</button>
             <!--<div class="field is-grouped is-grouped-right">

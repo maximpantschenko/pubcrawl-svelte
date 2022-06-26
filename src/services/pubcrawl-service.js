@@ -1,5 +1,4 @@
 import axios from "axios";
-import { latLng } from "leaflet";
 import {user} from "../stores";
 
 export class PubcrawlService {
@@ -80,17 +79,61 @@ export class PubcrawlService {
     }
   }
 
-  async createPub(publistid, name, city, country, lat, lng, img, file){
+  async getCategoriesMusic(){
     try{
-      const pubDetails = {
-        name: name,
-        city: city,
-        country: country,
-        lat: lat,
-        lng: lng,
-        img: img,
-      };
-      if(file!=null) pubDetails.file = file[0];
+      const response = await axios.get(this.baseUrl + "/api/getCategoriesMusic/");
+      return response.data;
+    } catch (error){
+      return [];
+    }
+  }
+
+  /*
+  async getCategoriesMusicByIds(categoriesMusicIds){
+    console.log("service: ");
+    console.log(categoriesMusicIds);
+    try{
+      const form = new FormData();
+      categoriesMusicIds.forEach(element => form.append("ids",element));
+
+      const url = this.baseUrl + "/api/getCategoriesMusicByIds";
+
+      const result = await axios({
+        method: 'post',
+        url: url,
+        data: form,
+        headers: {'Content-Type': 'multipart/form-data' }
+      })
+      .then(function (response) {
+        //handle success
+        console.log("success response of axios");
+        console.log(response.config);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log("error response of axios");
+        console.log(response.config);
+      });
+      console.log("result of axios");
+      console.log(result);
+      return result;
+    }catch(error){
+      console.log(error);
+      return [];
+    }
+  }*/
+
+  async createPub(publistid, name, city, country, lat, lng, img, categoriesMusic, file){
+    try{
+
+      const form = new FormData();
+      form.append("name",name);
+      form.append("city",city);
+      form.append("country",country);
+      form.append("lat",lat);
+      form.append("lng",lng);
+      categoriesMusic.forEach(element => form.append("categoriesMusic",element));
+      if(file!=null) form.append("file", file[0]);
 
       const url = this.baseUrl + "/api/publists/"+publistid+"/createpub";
 
@@ -98,16 +141,18 @@ export class PubcrawlService {
       await axios({
         method: 'post',
         url: url,
-        data: pubDetails,
+        data: form,
         headers: {'Content-Type': 'multipart/form-data' }
       })
       .then(function (response) {
         //handle success
-        console.log(response);
+        console.log("success response of axios");
+        console.log(response.config);
       })
       .catch(function (response) {
         //handle error
-        console.log(response);
+        console.log("error response of axios");
+        console.log(response.config);
       });
 
       return true;
@@ -117,34 +162,37 @@ export class PubcrawlService {
     }
   }
 
-  async updatePub(pubid, name, city, country, lat, lng, img, file) {
+  async updatePub(pubid, name, city, country, lat, lng, img, categoriesMusic, file) {
     try {
-      const pubDetails = {
-        pubid: pubid,
-        name: name,
-        city: city,
-        country: country,
-        lat: lat,
-        lng: lng,
-        img: img,
-      };
-      if(file!=null) pubDetails.file=file[0];
+      console.log("in update pub service");
+      console.log(categoriesMusic);
+      const form = new FormData();
+      form.append("name",name);
+      form.append("city",city);
+      form.append("country",country);
+      form.append("lat",lat);
+      form.append("lng",lng);
+      form.append("img",img);
+      categoriesMusic.forEach(element => form.append("categoriesMusic",element));
+      if(file!=null) form.append("file", file[0]);
 
-      const url = this.baseUrl + "/api/updatepub/"+pubDetails.pubid;
+      const url = this.baseUrl + "/api/updatepub/"+pubid;
 
       //await axios.post(this.baseUrl + "/api/updatepub/"+pubDetails.pubid, pubDetails);
       await axios({
         method: 'post',
         url: url,
-        data: pubDetails,
+        data: form,
         headers: {'Content-Type': 'multipart/form-data' }
       })
       .then(function (response) {
         //handle success
+        console.log("axios succes");
         console.log(response);
       })
       .catch(function (response) {
         //handle error
+        console.log("axios error");
         console.log(response);
       });
       return true;
