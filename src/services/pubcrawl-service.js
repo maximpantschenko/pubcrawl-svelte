@@ -61,6 +61,15 @@ export class PubcrawlService {
     }
   }
 
+  async getUserById(id){
+    try{
+      const response = await axios.get(this.baseUrl + "/api/users/"+id);
+      return response.data;
+    } catch (error){
+      return false;
+    }
+  }
+
   async getAllPubs(){
     try{
       const response = await axios.get(this.baseUrl + "/api/pubs");
@@ -211,5 +220,52 @@ export class PubcrawlService {
     }
   }
 
+  // /api/comments/add
+
+  async createComment(text, date, likes, pubid, userid){
+    try{
+      console.log("inside service createComment");
+      const form = new FormData();
+      form.append("text", text);
+      //form.append("city",city);
+      //form.append("likes", likes);
+      form.append("pubid", pubid);
+      form.append("userid", userid);
+
+      const url = this.baseUrl + "/api/comments/add";
+
+      //await axios.post(this.baseUrl + "/api/publists/"+publistid+"/createpub", pubDetails);
+      await axios({
+        method: 'post',
+        url: url,
+        data: form,
+        headers: {'Content-Type': 'multipart/form-data' }
+      })
+      .then(function (response) {
+        //handle success
+        console.log("success response of axios");
+        console.log(response.config);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log("error response of axios");
+        console.log(response.config);
+      });
+
+      return true;
+    }catch(error){
+      console.log(error);
+      return false;
+    }
+  }
+
+  async getCommentsByPubId(id){
+    try{
+      const response = await axios.get(this.baseUrl + "/api/comments/bypubid/"+id);
+      return response.data;
+    } catch (error){
+      return false;
+    }
+  }
 
 }
