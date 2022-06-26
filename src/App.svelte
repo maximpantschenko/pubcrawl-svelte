@@ -8,6 +8,7 @@ import Home from "./pages/Home.svelte";
 import EditPub from "./pages/EditPub.svelte";
 import CreatePub from "./pages/CreatePub.svelte";
 import Discover from "./pages/Discover.svelte";
+import Pub from "./pages/Pub.svelte";
 import { PubcrawlService } from "./services/pubcrawl-service";
 import { setContext } from "svelte";
 
@@ -24,6 +25,7 @@ import { setContext } from "svelte";
     "/logout": Main,
     "/editpub/:pubid": EditPub,
     "/createpub/:publistid": CreatePub,
+    "/pub/:pubid": Pub,
   }
 </script>
 

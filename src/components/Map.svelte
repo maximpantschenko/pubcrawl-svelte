@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import jq from 'jquery';
 import {createEventDispatcher, getContext, onMount} from "svelte";
 import PubInfo, {openPubInfo} from './PubInfo.svelte';
+import { push } from 'svelte-spa-router';
 
 const pubcrawlService = getContext("PubcrawlService");
 const dispatch = createEventDispatcher();
@@ -39,7 +40,8 @@ export function addPubMarker(pub) {
     const pubStr = `<button id="pubInfoBtn" class="js-modal-trigger leaflet-top leaflet-left" data-target="modal-js-example">open pub</button>`;
     //.setContent('<p>Hello world!<br />This is a nice popup.</p>');
     const marker = map.addMarker({lat: pub.lat, lng: pub.lng}, pubStr, "Pubs");
-    marker.on('click', () => {openPubInfo(pub)});
+    //marker.on('mouseover', () => {openPubInfo(pub)});
+    marker.on('click', () => push('/pub/'+pub._id));
     map.moveTo(4, {lat: pub.lat, lng: pub.lng});
 }
 

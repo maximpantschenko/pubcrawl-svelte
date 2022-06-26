@@ -67,7 +67,7 @@ export class LeafletMap {
   addMarker(location, popupText = "", layerTitle = "default") {
     let group = {};
     let marker = L.marker([location.lat, location.lng]);
-    //marker.on('click', () => {console.log("marker was clicked")});
+    //marker.on('hover', () => {console.log("marker was clicked")});
     if (popupText) {
       var popup = L.popup({autoClose: false, closeOnClick: true});
       //popup.setContent(popupText);
