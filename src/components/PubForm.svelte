@@ -123,7 +123,7 @@
   async function createPub(){
     console.log("function create catagoriesMusic");
     console.log(categoriesMusic);
-    let success = await pubcrawlService.createPub(id, name, city, country, lat, lng, img, categoriesMusic, files);
+    let success = await pubcrawlService.createPub(name, city, country, lat, lng, img, categoriesMusic, files);
     if(success){
       push("/discover");
     }else{

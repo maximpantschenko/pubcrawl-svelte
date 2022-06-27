@@ -24,7 +24,7 @@ import { setContext } from "svelte";
     "/discover": Discover,
     "/logout": Main,
     "/editpub/:pubid": EditPub,
-    "/createpub/:publistid": CreatePub,
+    "/createpub": CreatePub,
     "/pub/:pubid": Pub,
   }
 </script>

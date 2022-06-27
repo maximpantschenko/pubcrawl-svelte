@@ -4,8 +4,6 @@ import standardImage from "/src/assets/svelte.png"
 
     import {createEventDispatcher,getContext, onMount} from 'svelte';
 
-    export let publistid;
-
     const dispatch = createEventDispatcher();
 
     const pubcrawlService = getContext("PubcrawlService");

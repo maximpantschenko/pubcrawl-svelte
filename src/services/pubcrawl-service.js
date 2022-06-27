@@ -132,7 +132,7 @@ export class PubcrawlService {
     }
   }*/
 
-  async createPub(publistid, name, city, country, lat, lng, img, categoriesMusic, file){
+  async createPub(name, city, country, lat, lng, img, categoriesMusic, file){
     try{
 
       const form = new FormData();
@@ -144,9 +144,8 @@ export class PubcrawlService {
       categoriesMusic.forEach(element => form.append("categoriesMusic",element));
       if(file!=null) form.append("file", file[0]);
 
-      const url = this.baseUrl + "/api/publists/"+publistid+"/createpub";
+      const url = this.baseUrl + "/api/pubs/create";
 
-      //await axios.post(this.baseUrl + "/api/publists/"+publistid+"/createpub", pubDetails);
       await axios({
         method: 'post',
         url: url,
@@ -234,7 +233,6 @@ export class PubcrawlService {
 
       const url = this.baseUrl + "/api/comments/add";
 
-      //await axios.post(this.baseUrl + "/api/publists/"+publistid+"/createpub", pubDetails);
       await axios({
         method: 'post',
         url: url,

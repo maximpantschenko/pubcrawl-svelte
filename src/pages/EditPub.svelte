@@ -32,6 +32,6 @@
         <PubForm bind:lat={clickedLat} bind:lng={clickedLng} id={params.pubid} newpub={false}/>
     </div>
     <div class="column has-text-centered is-half hidden md:block w-full md:w-2/12 ml-auto map-side is-95vh">
-        <Map bind:this={pubsMap} on:clickedLocations={setLocations} markersVisible={false} publistid={null}/>
+        <Map bind:this={pubsMap} on:clickedLocations={setLocations} markersVisible={false} showAddBtn={false}/>
     </div>
 </div>
