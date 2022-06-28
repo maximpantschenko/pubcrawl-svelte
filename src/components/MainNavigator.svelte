@@ -1,5 +1,6 @@
 <script>
     import jq from 'jquery';
+import { push } from 'svelte-spa-router';
     import PubcrawlBrand from './PubcrawlBrand.svelte';
     
     jq(document).ready(function() {
@@ -12,7 +13,10 @@
           jq(".navbar-menu").toggleClass("is-active");
       });
     });
-  
+
+    async function showPubs(am){
+      push('/pubs/'+am);
+    }
   </script>
   
   <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -43,23 +47,16 @@
         </a>
   
         <div class="navbar-item has-dropdown is-hoverable">
-          <a href="#d" class="navbar-link">
-            More
+          <a href="/#/pubs/all" class="navbar-link">
+            Pubs
           </a>
   
           <div class="navbar-dropdown">
-            <a href="#d" class="navbar-item">
-              About
+            <a href="/#/pubs/all" class="navbar-item">
+              All Pubs
             </a>
-            <a href="#d" class="navbar-item">
-              Jobs
-            </a>
-            <a href="#d" class="navbar-item">
-              Contact
-            </a>
-            <hr class="navbar-divider">
-            <a href="#d" class="navbar-item">
-              Report an issue
+            <a href="/#/pubs/my" class="navbar-item">
+              My Pubs
             </a>
           </div>
         </div>

@@ -9,6 +9,8 @@ import EditPub from "./pages/EditPub.svelte";
 import CreatePub from "./pages/CreatePub.svelte";
 import Discover from "./pages/Discover.svelte";
 import Pub from "./pages/Pub.svelte";
+import MyPubs from "./pages/MyPubs.svelte";
+import AllPubs from "./pages/AllPubs.svelte";
 import { PubcrawlService } from "./services/pubcrawl-service";
 import { setContext } from "svelte";
 
@@ -26,6 +28,8 @@ import { setContext } from "svelte";
     "/editpub/:pubid": EditPub,
     "/createpub": CreatePub,
     "/pub/:pubid": Pub,
+    "/pubs/all": AllPubs,
+    "/pubs/my": MyPubs,
   }
 </script>
 

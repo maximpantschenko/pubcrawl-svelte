@@ -79,6 +79,15 @@ export class PubcrawlService {
     }
   }
 
+  async getMyPubs(){
+    try{
+      const response = await axios.get(this.baseUrl + "/api/pubs/currentuser");
+      return response.data;
+    } catch (error){
+      return [];
+    }
+  }
+
   async getPubById(id){
     try{
       const response = await axios.get(this.baseUrl + "/api/pubs/"+id);
@@ -221,7 +230,7 @@ export class PubcrawlService {
 
   // /api/comments/add
 
-  async createComment(text, date, likes, pubid, userid){
+  async createComment(text, date, likes, pubid){
     try{
       console.log("inside service createComment");
       const form = new FormData();
@@ -229,7 +238,6 @@ export class PubcrawlService {
       //form.append("city",city);
       //form.append("likes", likes);
       form.append("pubid", pubid);
-      form.append("userid", userid);
 
       const url = this.baseUrl + "/api/comments/add";
 
