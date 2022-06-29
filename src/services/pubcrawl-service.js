@@ -97,6 +97,24 @@ export class PubcrawlService {
     }
   }
 
+  async getPubSearchName(string){
+    try{
+      const response = await axios.get(this.baseUrl + "/api/pubs/searchname/"+string);
+      return response.data;
+    } catch (error){
+      return [];
+    }
+  }
+
+  async getPubSearch(searchString){
+    try{
+      const response = await axios.get(this.baseUrl + "/api/pubs/search/"+searchString);
+      return response.data;
+    } catch (error){
+      return [];
+    }
+  }
+
   async getCategoriesMusic(){
     try{
       const response = await axios.get(this.baseUrl + "/api/getCategoriesMusic/");

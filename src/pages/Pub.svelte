@@ -49,7 +49,8 @@
         img = pub.img;
         */
         canEdit = pub.canEdit;
-        categoriesMusic = pub.categoriesMusic;
+        if(pub.categoriesMusic!=null) categoriesMusic = pub.categoriesMusic;
+        console.log(categoriesMusic);
         console.log("get pub categoies");
         console.log(pub);
         getComments();
@@ -159,7 +160,7 @@
                                 {/each}
                             </div>
                             <p style="font-size: 20px">Rating: </p>
-                            <div class="level-left">
+                            <!--<div class="level-left">
                                 {#each categoriesMusic as music}
                                     <a class="level-item">
                                         <span class="icon is-small"><i class="fa-solid fa-star"></i></span>
@@ -170,13 +171,13 @@
                                         <span class="icon is-small"><i class="fa-regular fa-star"></i></span>
                                     </a>
                                 {/each}
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <div class="columns">
                         <div class="column">
                             {#if pub.canEdit}
-                                <a class="button">Edit</a>
+                            <a href="/#/editpub/{pub._id}" class="button">Edit</a>
                             {/if}
                         </div>
                     </div>
