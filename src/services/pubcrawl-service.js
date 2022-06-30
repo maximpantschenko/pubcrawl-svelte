@@ -159,11 +159,12 @@ export class PubcrawlService {
     }
   }*/
 
-  async createPub(name, city, country, lat, lng, img, categoriesMusic, file){
+  async createPub(name, description, city, country, lat, lng, img, categoriesMusic, file){
     try{
 
       const form = new FormData();
       form.append("name",name);
+      form.append("description", description);
       form.append("city",city);
       form.append("country",country);
       form.append("lat",lat);
@@ -197,12 +198,13 @@ export class PubcrawlService {
     }
   }
 
-  async updatePub(pubid, name, city, country, lat, lng, img, categoriesMusic, file) {
+  async updatePub(pubid, name, description, city, country, lat, lng, img, categoriesMusic, file) {
     try {
       console.log("in update pub service");
       console.log(categoriesMusic);
       const form = new FormData();
       form.append("name",name);
+      form.append("description", description);
       form.append("city",city);
       form.append("country",country);
       form.append("lat",lat);

@@ -15,6 +15,7 @@
 
     let id = null;
     let name = "";
+    let description = "";
     let city = "";
     let country = "";
     let lat = "";
@@ -42,6 +43,7 @@
         //categoriesMusic = await pubcrawlService.getCategoriesMusicByIds(pub.categoriesMusic);
         /*
         name = pub.name;
+        description = pub.description;
         city = pub.city;
         country = pub.country;
         lat = pub.lat;
@@ -108,6 +110,17 @@
     async function goBack(){
         pop();
     }
+
+    async function deletePub(id){
+        console.log(id);
+        let success = await pubcrawlService.deletePub(id);
+        if(success){
+            //push("/discover");
+            goBack();
+        }else{
+            errorMessage = "Couldn't delete the Pub";
+        }
+    }
 </script>
 
 <MainNavigator/>
@@ -138,10 +151,8 @@
                     <h2 class="subtitle">{pub.city}</h2>
                     <div class="columns">
                         <div class="column">
-                            <p style="font-size: 20px">Description: </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                            </p>
+                            <p style="font-size: 20px">Description</p>
+                            <p>{pub.description}</p>
                         </div>
                     </div>
                     <div class="columns">
@@ -177,7 +188,14 @@
                     <div class="columns">
                         <div class="column">
                             {#if pub.canEdit}
-                            <a href="/#/editpub/{pub._id}" class="button">Edit</a>
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <a href="/#/editpub/{pub._id}" class="button is-primary">Edit</a>
+                                    </div>
+                                    <div class="control">
+                                        <button on:click={() => {deletePub(pub._id)}} class="card-footer-item button is-danger">Delete</button>
+                                    </div>
+                                </div>
                             {/if}
                         </div>
                     </div>
@@ -252,5 +270,8 @@
 </section>
     {#if successMessage}
         <p>{successMessage}</p>
+    {/if}
+    {#if errorMessage}
+        <p>{errorMessage}</p>
     {/if}
 {/if}

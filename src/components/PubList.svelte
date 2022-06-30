@@ -148,9 +148,7 @@ import jq from 'jquery';
             <div class="content">
                 <p class="title is-4">{ pub.name }</p>
                 <p class="subtitle is-6">{ pub.city }, {pub.country}</p>
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                </p>
+                <p>{ pub.description }</p>
             </div>
             <nav class="level is-mobile">
                 <div class="level-left">
@@ -172,6 +170,15 @@ import jq from 'jquery';
     </div>
 </a>
 {/each}
+
+<div class="box">
+    <a href="/#/createpub" class="button is-primary is-fullwidth">
+        <span class="icon is-small">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span>Create New Pub</span>
+    </a>
+</div>
 
 <style>
     .box{

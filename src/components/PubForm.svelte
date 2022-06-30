@@ -7,6 +7,7 @@
   export let newpub;
 
   let name = "";
+  let description = "";
   let city = "";
   let country = "";
   export let lat = "";
@@ -91,6 +92,7 @@
     console.log("getPub first");
     let pub = await pubcrawlService.getPubById(id); 
     name = pub.name;
+    description = pub.description;
     city = pub.city;
     country = pub.country;
     lat = pub.lat;
@@ -112,7 +114,7 @@
   async function updatePub(){
     console.log("function updatePub catagoriesMusic");
     console.log(categoriesMusic);
-    let success = await pubcrawlService.updatePub(id, name, city, country, lat, lng, img, categoriesMusic, files);
+    let success = await pubcrawlService.updatePub(id, name, description, city, country, lat, lng, img, categoriesMusic, files);
     if(success){
       push("/discover");
     }else{
@@ -123,7 +125,7 @@
   async function createPub(){
     console.log("function create catagoriesMusic");
     console.log(categoriesMusic);
-    let success = await pubcrawlService.createPub(name, city, country, lat, lng, img, categoriesMusic, files);
+    let success = await pubcrawlService.createPub(name, description, city, country, lat, lng, img, categoriesMusic, files);
     if(success){
       push("/discover");
     }else{
@@ -148,7 +150,7 @@
   if(!newpub) getPub();
 </script>
 
-<form on:submit|preventDefault={updateOrCreate}>
+<form on:submit|preventDefault={updateOrCreate} id="pubform">
     <div class="card">
       <div class="card-image">
         <figure class="image">
@@ -176,6 +178,13 @@
       <label class="label">Name</label>
       <div class="control">
         <input class="input" type="text" placeholder="Enter Name" name="name" bind:value="{name}">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Description</label>
+      <div class="control">
+        <textarea class="textarea" type="text" form="pubform" rows="5" placeholder="Enter Description" name="description" bind:value="{description}"></textarea>
       </div>
     </div>
   

@@ -76,11 +76,7 @@ import standardImage from "/src/assets/svelte.png"
             </div>
 
             <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                <a href="#">#css</a> <a href="#">#responsive</a>
-                <br>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                { pub.description }
                 <p>
                     <button on:click={() => {getClickedPub(pub)}} class="ui icon-text button">
                         <span>lat: { pub.lat }, lng: { pub.lng }</span> 

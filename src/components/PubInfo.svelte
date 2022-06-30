@@ -5,6 +5,7 @@
 let pubInfoDialog = null;
 let pub = {
     name: '',
+    description: '',
     city: '',
     country: '',
     lat: '',
@@ -26,6 +27,7 @@ export function closePubInfo(){
 
 function setValuesInUi(){
     jq(".pubName").text(pub.name);
+    jq(".pubDescription").text(pub.description);
     jq(".pubCity").text(pub.city);
     //jq(".pubCountry").text(pub.country);
     jq(".pubLat").text(pub.lat);
