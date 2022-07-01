@@ -76,7 +76,7 @@
         const text = jq("#comment-textarea").val();
         console.log(text);
 
-        const pubid = pub.id;
+        const pubid = pub._id;
         const date = null;
         const likes = null;
         console.log("addComment svelte");
@@ -85,8 +85,9 @@
         let success = await pubcrawlService.createComment(text, date, likes, pubid);
         if(success){
             successMessage = "Created Comment Succesfully";
+            jq("#comment-textarea").val("");
         }else{
-            errorMessage = "Couldn't Create the Pub";
+            errorMessage = "Couldn't Create the Comment";
         }
 
         getComments();
@@ -125,6 +126,21 @@
             errorMessage = "Couldn't delete the Pub";
         }
     }
+
+    async function deleteComment(commentid){
+        console.log("delete comment: "+commentid);
+        let success = await pubcrawlService.deleteComment(commentid);
+        if(success){
+            successMessage = "Deleted Comment successfully";
+            getComments();
+        }else{
+            errorMessage = "Couldn't delete Comment";
+        }
+    }
+
+    async function deleteNotification(){
+        jq(".notification").remove();
+    }
 </script>
 
 <MainNavigator/>
@@ -138,7 +154,15 @@
 {:else}
 <section>
     <div class="box">
-        <a class="button" on:click={goBack}><i class="fa-solid fa-arrow-left"></i></a>
+        <div class="columns is-12">
+            <div class="column is-1">
+                <a class="button" on:click={goBack}><i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+            <div class="column">
+                <span class="title">Pubs</span>
+            </div>
+        </div>
+        
     </div>
 </section>
 <section class="section">
@@ -211,8 +235,8 @@
         <div class="box">
             <article class="media">
                 <figure class="media-left">
-                    <p class="image is-256x256">
-                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                    <p class="image is-32x32">
+                        <img src="/src/assets/user.png">
                     </p>  
                 </figure>
                 <div class="media-content">
@@ -225,12 +249,6 @@
                 </div>
                 <nav class="level is-mobile">
                     <div class="level-left">
-                        <a class="level-item">
-                            <span class="icon is-small"><i class="fas fa-reply"></i></span>
-                        </a>
-                        <a class="level-item">
-                            <span class="icon is-small"><i class="fas fa-retweet"></i></span>
-                        </a>
                         <a class="level-item" on:click={() => addLike(comment._id)}>
                             <span data-id="{comment._id}" class="liked-icon icon is-small"><i class="fa-regular fa-heart"></i></span>
                             <span style="margin-left: 5px">3</span>
@@ -240,10 +258,10 @@
                 </div>
                 <div class="media-right">
                     {#if pub.canEdit}
-                        <button class="delete"></button>
+                        <button class="delete" on:click={() => deleteComment(comment._id)}></button>
                     {:else}
                         {#if comment.canEdit}
-                            <button class="delete"></button>
+                            <button class="delete" on:click={() => deleteComment(comment._id)}></button>
                         {/if}
                     {/if}
                 </div>
@@ -253,9 +271,9 @@
     <div class="box">
         <article class="media">
             <figure class="media-left">
-            <p class="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/128x128.png">
-            </p>
+                <p class="image is-64x64">
+                    <img src="/src/assets/user.png">
+                </p>
             </figure>
             <div class="media-content">
             <div class="field">
@@ -272,10 +290,20 @@
         </article>
     </div>
 </section>
+<section>
     {#if successMessage}
-        <p>{successMessage}</p>
+        <div class="notification is-success">
+            <a class="delete" on:click={() => {deleteNotification()}}></a>
+            {successMessage}
+        </div>
     {/if}
     {#if errorMessage}
-        <p>{errorMessage}</p>
+        <div class="section">
+            <div class="notification is-warning">
+                <a class="delete" on:click={() => {deleteNotification()}}></a>
+                {errorMessage}
+            </div>
+        </div>
     {/if}
+</section>
 {/if}

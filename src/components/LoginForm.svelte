@@ -36,6 +36,9 @@
 
 {#if errorMessage}
   <div class="section">
-    {errorMessage}
+    <div class="notification is-warning">
+      <button class="delete"></button>
+      {errorMessage}
+    </div>
   </div>
 {/if}

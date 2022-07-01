@@ -1,8 +1,19 @@
 <script>
     import jq from 'jquery';
-import { push } from 'svelte-spa-router';
+    import { push } from 'svelte-spa-router';
+    import {getContext, onMount} from "svelte";
     import PubcrawlBrand from './PubcrawlBrand.svelte';
     
+    const pubcrawlService = getContext("PubcrawlService");
+    let navCurrentUser = "";
+
+    onMount(async () => {
+      const getNavUser = await pubcrawlService.getCurrentUser();
+      navCurrentUser = getNavUser.firstName + " " + getNavUser.lastName;
+      console.log("navigation user");
+      console.log(navCurrentUser);
+    });
+
     jq(document).ready(function() {
   
       // Check for click events on the navbar burger icon
@@ -34,16 +45,16 @@ import { push } from 'svelte-spa-router';
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a href="/#/home" class="navbar-item">
+        <!--<a href="/#/home" class="navbar-item">
           Home
-        </a>
+        </a>-->
   
-        <a href="/#/dashboard" class="navbar-item">
+        <!--<a href="/#/dashboard" class="navbar-item">
           Dashboard
-        </a>
+        </a>-->
   
         <a href="/#/discover" class="navbar-item">
-          Discover
+          Map
         </a>
   
         <div class="navbar-item has-dropdown is-hoverable">
@@ -65,14 +76,14 @@ import { push } from 'svelte-spa-router';
       <div class="navbar-end">
         <div class="navbar-item has-dropdown is-hoverable">
           <a href="/#/account" class="navbar-link">
-            Account
+            {navCurrentUser}
           </a>
 
           <div class="navbar-dropdown">
             <a href="/#/account" class="navbar-item">
               My Account
             </a>
-            <a href="/#/logout" class="navbar-item">
+            <a href="/#/logout" class="navbar-item" style="color:red">
               Logout
             </a>
           </div>

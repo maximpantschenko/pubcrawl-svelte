@@ -25,6 +25,11 @@
   let fileInput = null;
   let files = null;
 
+  let loading = {
+      value: 10,
+      show: false,
+  };
+
 
   onMount(async () => {
       console.log("on mount first");
@@ -114,10 +119,14 @@
   async function updatePub(){
     console.log("function updatePub catagoriesMusic");
     console.log(categoriesMusic);
+    loading.value = 30;
+    loading.show = true;
     let success = await pubcrawlService.updatePub(id, name, description, city, country, lat, lng, img, categoriesMusic, files);
+    loading.value = 65;
     if(success){
       push("/discover");
     }else{
+      loading.show = false;
       errorMessage = "Couldn't Update the Pub";
     }
   }
@@ -125,10 +134,14 @@
   async function createPub(){
     console.log("function create catagoriesMusic");
     console.log(categoriesMusic);
+    loading.value = 30;
+    loading.show = true;
     let success = await pubcrawlService.createPub(name, description, city, country, lat, lng, img, categoriesMusic, files);
+    loading.value = 65;
     if(success){
       push("/discover");
     }else{
+      loading.show = false;
       errorMessage = "Couldn't Create the Pub";
     }
   }
@@ -252,6 +265,10 @@
       </div>
     </div>
   
+    {#if loading.show}
+      <!--<progress class="progress is-primary" value="{loading.value}" max="100">15%</progress>-->
+      <progress class="progress is-small is-primary" max="100">15%</progress>
+    {/if}
     
 
     <div class="field is-grouped is-grouped-right">

@@ -145,27 +145,29 @@ import jq from 'jquery';
             </p>
             </figure>
             <div class="media-content">
-            <div class="content">
-                <p class="title is-4">{ pub.name }</p>
-                <p class="subtitle is-6">{ pub.city }, {pub.country}</p>
-                <p>{ pub.description }</p>
-            </div>
-            <nav class="level is-mobile">
-                <div class="level-left">
-                    <a class="level-item">
-                        <span class="icon is-small"><i class="fas fa-reply"></i></span>
-                    </a>
-                    <a class="level-item">
-                        <span class="icon is-small"><i class="fas fa-retweet"></i></span>
-                    </a>
+                <div class="content">
+                    <p class="title is-4">{ pub.name }</p>
+                    <p class="subtitle is-6">{ pub.city }, {pub.country}</p>
+                    <p>{ pub.description }</p>
                 </div>
-            </nav>
+                <!--
+                <nav class="level is-mobile">
+                    <div class="level-left">
+                        <a class="level-item">
+                            <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                        </a>
+                        <a class="level-item">
+                            <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                        </a>
+                    </div>
+                </nav>-->
             </div>
+            <!--
             <div class="media-right">
                 <a class="level-item">
                     <span class="icon is-small"><i class="fas fa-heart"></i></span>
                 </a>
-            </div>
+            </div>-->
         </article>
     </div>
 </a>

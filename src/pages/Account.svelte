@@ -61,7 +61,7 @@
           <input bind:value={password} id="password" class="input" type="password" placeholder="Enter Password" name="password">
         </div>
         <div class="field is-grouped">
-          <button class="button is-link">Sign Up</button>
+          <button class="button is-link">Save</button>
         </div>
     </form>
 </div>

@@ -263,6 +263,7 @@ export class PubcrawlService {
   async createComment(text, date, likes, pubid){
     try{
       console.log("inside service createComment");
+      console.log(pubid);
       const form = new FormData();
       form.append("text", text);
       //form.append("city",city);
@@ -291,6 +292,15 @@ export class PubcrawlService {
       return true;
     }catch(error){
       console.log(error);
+      return false;
+    }
+  }
+
+  async deleteComment(id){
+    try {
+      await axios.delete(this.baseUrl + "/api/comments/delete/"+id);
+      return true;
+    } catch (error) {
       return false;
     }
   }
