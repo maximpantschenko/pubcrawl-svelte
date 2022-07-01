@@ -6,7 +6,7 @@
 <WelcomeNavigator/>
 <div class="column">
     <div class="box">
-        <h1 class="title">Signup</h1>
+        <h1 class="title">Sign Up</h1>
         <SignupForm/>
     </div>
 </div>

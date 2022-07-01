@@ -1,8 +1,11 @@
 <script>
-    import WelcomeNavigator from "../components/WelcomeNavigator.svelte";
+    import MainNavigator from "../components/MainNavigator.svelte";
+    import PubChart from "../components/PubChart.svelte";
 </script>
     
-<WelcomeNavigator/>
+<MainNavigator/>
 <div class="notification is-link">
     Hello from Dashboard
 </div>
+
+<PubChart/>

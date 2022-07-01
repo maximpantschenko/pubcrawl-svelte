@@ -17,7 +17,7 @@
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/#/home">
+    <a class="navbar-item" href="/#/main">
       <PubcrawlBrand/>
     </a>
 
@@ -29,47 +29,12 @@
   </div>
 
   <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a href="/#/home" class="navbar-item">
-        Home
-      </a>
-
-      <a href="/#/dashboard" class="navbar-item">
-        Dashboard
-      </a>
-
-      <a href="/#/discover" class="navbar-item">
-        Discover
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a href="#d" class="navbar-link">
-          More
-        </a>
-
-        <div class="navbar-dropdown">
-          <a href="#d" class="navbar-item">
-            About
-          </a>
-          <a href="#d" class="navbar-item">
-            Jobs
-          </a>
-          <a href="#d" class="navbar-item">
-            Contact
-          </a>
-          <hr class="navbar-divider">
-          <a href="#d" class="navbar-item">
-            Report an issue
-          </a>
-        </div>
-      </div>
-    </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
           <a href="/#/signup"class="button is-primary">
-            <strong>Sign up</strong>
+            <strong>Sign Up</strong>
           </a>
           <a href="/#/login" class="button is-light">
             Log in

@@ -1,7 +1,19 @@
 <script>
     import jq from 'jquery';
+    import { push } from 'svelte-spa-router';
+    import {getContext, onMount} from "svelte";
     import PubcrawlBrand from './PubcrawlBrand.svelte';
     
+    const pubcrawlService = getContext("PubcrawlService");
+    let navCurrentUser = "";
+
+    onMount(async () => {
+      const getNavUser = await pubcrawlService.getCurrentUser();
+      navCurrentUser = getNavUser.firstName + " " + getNavUser.lastName;
+      console.log("navigation user");
+      console.log(navCurrentUser);
+    });
+
     jq(document).ready(function() {
   
       // Check for click events on the navbar burger icon
@@ -12,7 +24,10 @@
           jq(".navbar-menu").toggleClass("is-active");
       });
     });
-  
+
+    async function showPubs(am){
+      push('/pubs/'+am);
+    }
   </script>
   
   <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -30,48 +45,54 @@
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a href="/#/home" class="navbar-item">
+        <!--<a href="/#/home" class="navbar-item">
           Home
-        </a>
+        </a>-->
   
-        <a href="/#/dashboard" class="navbar-item">
+        <!--<a href="/#/dashboard" class="navbar-item">
           Dashboard
-        </a>
+        </a>-->
   
         <a href="/#/discover" class="navbar-item">
-          Discover
+          Map
         </a>
   
         <div class="navbar-item has-dropdown is-hoverable">
-          <a href="#d" class="navbar-link">
-            More
+          <a href="/#/pubs/all" class="navbar-link">
+            Pubs
           </a>
   
           <div class="navbar-dropdown">
-            <a href="#d" class="navbar-item">
-              About
+            <a href="/#/pubs/all" class="navbar-item">
+              All Pubs
             </a>
-            <a href="#d" class="navbar-item">
-              Jobs
-            </a>
-            <a href="#d" class="navbar-item">
-              Contact
-            </a>
-            <hr class="navbar-divider">
-            <a href="#d" class="navbar-item">
-              Report an issue
+            <a href="/#/pubs/my" class="navbar-item">
+              My Pubs
             </a>
           </div>
         </div>
       </div>
   
       <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <a href="/#/logout"class="button is-primary">
-              <strong>Logout</strong>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a href="/#/account" class="navbar-link">
+            {navCurrentUser}
+          </a>
+
+          <div class="navbar-dropdown">
+            <a href="/#/account" class="navbar-item">
+              My Account
+            </a>
+            <a href="/#/logout" class="navbar-item" style="color:red">
+              Logout
             </a>
           </div>
+
+          <!--<div class="buttons">
+            <a href="/#/logout"class="button is-danger">
+              <strong>Logout</strong>
+            </a>
+          </div>-->
         </div>
       </div>
     </div>
