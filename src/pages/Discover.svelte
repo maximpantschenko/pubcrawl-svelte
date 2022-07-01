@@ -1,12 +1,25 @@
 <script>
-import PubsSideNav from '../components/PubsSideNav.svelte';
-import MainNavigator from '../components/MainNavigator.svelte';
-import Map from '../components/Map.svelte';
+    import {push} from "svelte-spa-router";
+    import PubsSideNavOne from '../components/PubsSideNavOne.svelte';
+    import MainNavigator from '../components/MainNavigator.svelte';
+    import Map from '../components/Map.svelte';
 
-let pubsMap = null;
-function showPubOnMap(event){
-    pubsMap.showPubOnMap(event.detail.pub);
-}
+    let pubsMap = null;
+    let pubSideNav = null;
+
+    if(localStorage.pubcrawl == null){
+        push("/login");
+    }
+
+    function showPubOnMap(event){
+        pubsMap.showPubOnMap(event.detail.pub);
+    }
+
+    function showPubOnSideNav(event){
+        console.log("shoPubOnSideNav");
+        console.log(event.detail.pub);
+        pubSideNav.showPubOnSideNav(event.detail.pub);
+    }
 
 </script>
 
@@ -16,10 +29,10 @@ function showPubOnMap(event){
     </div>
     <div class="columns box">
         <div class="column has-text-centerd relative md:fixed sm:w-full md:w-10/12 p-2 h-screen">
-            <Map bind:this={pubsMap} markersVisible={true} showAddBtn={true}/>
+            <Map bind:this={pubsMap} on:pubMarkerClicked={showPubOnSideNav} markersVisible={true} showAddBtn={true}/>
         </div>
         <div class="column has-text-centered is-one-quarter hidden md:block w-full md:w-2/12 ml-auto map-side is-95vh">
-            <PubsSideNav on:pubClicked={showPubOnMap}/>
+            <PubsSideNavOne bind:this={pubSideNav} on:pubClicked={showPubOnMap}/>
             
         </div>
     </div>

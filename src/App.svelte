@@ -11,13 +11,14 @@ import Discover from "./pages/Discover.svelte";
 import Pub from "./pages/Pub.svelte";
 import MyPubs from "./pages/MyPubs.svelte";
 import AllPubs from "./pages/AllPubs.svelte";
+import Account from "./pages/Account.svelte";
 import { PubcrawlService } from "./services/pubcrawl-service";
 import { setContext } from "svelte";
 
   //setContext("PubcrawlService", new PubcrawlService("https://calm-cove-09278.herokuapp.com"));
   setContext("PubcrawlService", new PubcrawlService("http://localhost:4000"));
   let routes = {
-    "/": Main,
+    "/": Home,
     "/login": Login,
     "/signup": Signup,
     "/main": Main,
@@ -30,6 +31,7 @@ import { setContext } from "svelte";
     "/pub/:pubid": Pub,
     "/pubs/all": AllPubs,
     "/pubs/my": MyPubs,
+    "/account": Account,
   }
 </script>
 

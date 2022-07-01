@@ -63,12 +63,25 @@ import { push } from 'svelte-spa-router';
       </div>
   
       <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a href="/#/account" class="navbar-link">
+            Account
+          </a>
+
+          <div class="navbar-dropdown">
+            <a href="/#/account" class="navbar-item">
+              My Account
+            </a>
+            <a href="/#/logout" class="navbar-item">
+              Logout
+            </a>
+          </div>
+
+          <!--<div class="buttons">
             <a href="/#/logout"class="button is-danger">
               <strong>Logout</strong>
             </a>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>

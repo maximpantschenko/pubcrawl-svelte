@@ -15,10 +15,14 @@ import standardImage from "/src/assets/svelte.png"
     let errorMessage = "";
 
     onMount(async () =>{
+        getAllPubs();
+    });
+
+    async function getAllPubs(){
         pubs = await pubcrawlService.getAllPubs();
         shortPubs = pubs;
         shortenLocations(shortPubs);
-    });
+    }
 
     async function getClickedPub(getPub){
         dispatch('pubClicked', {
@@ -31,12 +35,26 @@ import standardImage from "/src/assets/svelte.png"
     }
 
     function shortenLocations(getPubs){
+        console.log("shorten pubs");
+        console.log(getPubs);
         getPubs.forEach(function(item, index){
             if(item.lat.indexOf('-',0)!=-1) item.lat=shortenCoordinate(item.lat,(item.lat.indexOf('.', 0)+4));
             else item.lat=shortenCoordinate(item.lat,(item.lat.indexOf('.', 0)+2));
             if(item.lng.indexOf('-',0)!=-1) item.lng=shortenCoordinate(item.lng,(item.lat.indexOf('.', 0)+4));
             else item.lng=shortenCoordinate(item.lng,(item.lat.indexOf('.', 0)+2));
         })
+    }
+
+    export async function showPubOnSideNav(getPub){
+        console.log("inside map: showPubOnSideNav");
+        pubs = [];
+        const pub = await pubcrawlService.getPubById(getPub);
+        pubs.push(pub);
+        shortPubs = pubs;
+        shortenLocations(shortPubs);
+        console.log("clicked pub on map");
+        console.log(pub);
+        shortenLocations(shortPubs);
     }
 
     async function deletePub(id){
@@ -51,6 +69,9 @@ import standardImage from "/src/assets/svelte.png"
     }
 </script>
 
+<a class="button box" on:click={() => {getAllPubs()}}>
+    Show All
+</a>
 {#each shortPubs as pub}
     <div class="card">
         <div class="card-image">
@@ -64,11 +85,6 @@ import standardImage from "/src/assets/svelte.png"
         </div>
         <div class="card-content">
             <div class="media">
-            <div class="media-left">
-                <figure class="image is-48x48">
-                <img src="{pub.img}" alt="Placeholder image">
-                </figure>
-            </div>
             <div class="media-content">
                 <p class="title is-4">{ pub.name }</p>
                 <p class="subtitle is-6">{ pub.city }</p>
@@ -76,7 +92,6 @@ import standardImage from "/src/assets/svelte.png"
             </div>
 
             <div class="content">
-                { pub.description }
                 <p>
                     <button on:click={() => {getClickedPub(pub)}} class="ui icon-text button">
                         <span>lat: { pub.lat }, lng: { pub.lng }</span> 

@@ -1,5 +1,6 @@
 <script>
     import jq from 'jquery';
+    import {push} from "svelte-spa-router";
     import MainNavigator from '../components/MainNavigator.svelte';
     import PubForm from '../components/PubForm.svelte';
     import Map from '../components/Map.svelte';
@@ -9,6 +10,10 @@
     
     let clickedLat;
     let clickedLng;
+
+    if(localStorage.pubcrawl == null){
+        push("/login");
+    }
 
     function setLocations(event){
         clickedLat=event.detail.lat;

@@ -34,12 +34,21 @@ onMount(async () => {
     }
 });
 
+async function showPubInfo(getPubId){
+    console.log("pub info insode map svelte");
+    console.log(getPubId);
+    dispatch('pubMarkerClicked', {
+        pub: getPubId,
+    });
+}
+
 export function addPubMarker(pub) {
     //const pubStr = `${pub.name}`;
     const pubStr = `<button id="pubInfoBtn" class="js-modal-trigger leaflet-top leaflet-left" data-target="modal-js-example">open pub</button>`;
     //.setContent('<p>Hello world!<br />This is a nice popup.</p>');
     const marker = map.addMarker({lat: pub.lat, lng: pub.lng}, pubStr, "Pubs");
-    marker.on('click', () => push('/pub/'+pub._id));
+    //marker.on('click', () => push('/pub/'+pub._id));
+    marker.on('click', () => showPubInfo(pub._id));
     map.moveTo(4, {lat: pub.lat, lng: pub.lng});
 }
 

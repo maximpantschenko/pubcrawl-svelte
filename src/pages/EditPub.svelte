@@ -3,13 +3,17 @@
     import MainNavigator from '../components/MainNavigator.svelte';
     import PubForm from '../components/PubForm.svelte';
     import Map from '../components/Map.svelte';
-    import { pop } from 'svelte-spa-router';
+    import { push,pop } from 'svelte-spa-router';
     export let params;
 
     let pubsMap = null;
     
     let clickedLat;
     let clickedLng;
+
+    if(localStorage.pubcrawl == null){
+        push("/login");
+    }
 
     function setLocations(event){
         clickedLat=event.detail.lat;

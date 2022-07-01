@@ -2,7 +2,11 @@
     import MainNavigator from '../components/MainNavigator.svelte';
     import {getContext, onMount} from "svelte";
     import jq from 'jquery';
-    import { pop } from 'svelte-spa-router';
+    import { push,pop } from 'svelte-spa-router';
+
+    if(localStorage.pubcrawl == null){
+        push("/login");
+    }
 
     export let params;
 

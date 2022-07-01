@@ -44,6 +44,7 @@ export class PubcrawlService {
     });
     axios.defaults.headers.common["Authorization"] = "";
     localStorage.removeItem("pubcrawl");
+    localStorage.removeItem("donation");
   }
 
   async signup(firstName, lastName, email, password) {
@@ -64,6 +65,15 @@ export class PubcrawlService {
   async getUserById(id){
     try{
       const response = await axios.get(this.baseUrl + "/api/users/"+id);
+      return response.data;
+    } catch (error){
+      return false;
+    }
+  }
+
+  async getCurrentUser(){
+    try{
+      const response = await axios.get(this.baseUrl + "/api/users/current");
       return response.data;
     } catch (error){
       return false;
