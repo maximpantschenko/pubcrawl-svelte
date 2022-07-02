@@ -16,8 +16,6 @@
     }
 
     function showPubOnSideNav(event){
-        console.log("shoPubOnSideNav");
-        console.log(event.detail.pub);
         pubSideNav.showPubOnSideNav(event.detail.pub);
     }
 

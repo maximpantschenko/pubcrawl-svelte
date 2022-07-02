@@ -9,9 +9,6 @@
 </script>
 
 <MainNavigator/>
-<div class="columns box">
-    <p>hier kommen die filter in all pubs</p>
-</div>
 <PubList allPubs={false}/>
 <style>
     .box{

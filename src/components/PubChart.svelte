@@ -16,7 +16,6 @@
 
     onMount(async () => {
       pubs = await pubcrawlService.getAllPubsExtra();
-      console.log(pubs);
       setData();
       
     });
@@ -102,8 +101,6 @@
         }
         values.push(count);
       });
-      console.log("citys values");
-      console.log(values);
       return values;
     }
 
@@ -116,8 +113,6 @@
         }
         values.push(count);
       });
-      console.log("country values");
-      console.log(values);
       return values;
     }
 

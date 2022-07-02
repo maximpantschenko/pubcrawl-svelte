@@ -1,13 +1,13 @@
 import axios from "axios";
+import { params } from "svelte-spa-router";
 import {user} from "../stores";
 
 export class PubcrawlService {
-  //baseUrl = "https://calm-cove-09278.herokuapp.com";
-  baseUrl = "http://localhost:4000";
+  baseUrl = "https://calm-cove-09278.herokuapp.com";
+  //baseUrl = "http://localhost:4000";
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    console.log(this.baseUrl);
     const pubcrawlCredentials = localStorage.pubcrawl;
     if (pubcrawlCredentials) {
       const savedUser = JSON.parse(pubcrawlCredentials);
@@ -145,8 +145,6 @@ export class PubcrawlService {
 
   /*
   async getCategoriesMusicByIds(categoriesMusicIds){
-    console.log("service: ");
-    console.log(categoriesMusicIds);
     try{
       const form = new FormData();
       categoriesMusicIds.forEach(element => form.append("ids",element));
@@ -161,19 +159,12 @@ export class PubcrawlService {
       })
       .then(function (response) {
         //handle success
-        console.log("success response of axios");
-        console.log(response.config);
       })
       .catch(function (response) {
         //handle error
-        console.log("error response of axios");
-        console.log(response.config);
       });
-      console.log("result of axios");
-      console.log(result);
       return result;
     }catch(error){
-      console.log(error);
       return [];
     }
   }*/
@@ -201,26 +192,19 @@ export class PubcrawlService {
       })
       .then(function (response) {
         //handle success
-        console.log("success response of axios");
-        console.log(response.config);
       })
       .catch(function (response) {
         //handle error
-        console.log("error response of axios");
-        console.log(response.config);
       });
 
       return true;
     }catch(error){
-      console.log(error);
       return false;
     }
   }
 
   async updatePub(pubid, name, description, city, country, lat, lng, img, categoriesMusic, file) {
     try {
-      console.log("in update pub service");
-      console.log(categoriesMusic);
       const form = new FormData();
       form.append("name",name);
       form.append("description", description);
@@ -243,20 +227,51 @@ export class PubcrawlService {
       })
       .then(function (response) {
         //handle success
-        console.log("axios succes");
-        console.log(response);
       })
       .catch(function (response) {
         //handle error
-        console.log("axios error");
-        console.log(response);
       });
       return true;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
+
+  async uploadImage(pubid, file) {
+    try {
+      const form = new FormData();
+      if(file!=null) form.append("file", file[0]);
+
+      const url = this.baseUrl + "/api/pubs/uploadimage/"+pubid;
+
+      await axios({
+        method: 'post',
+        url: url,
+        data: form,
+        headers: {'Content-Type': 'multipart/form-data' }
+      })
+      .then(function (response) {
+        //handle success
+      })
+      .catch(function (response) {
+        //handle error
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  /*
+  async deleteImage(pubid, image){
+    try {
+      const response = await axios.post(this.baseUrl + "/api/pubs/deleteimage/" + pubid, image);
+      return response.status == 200;
+    } catch (error) {
+      return false;
+    }
+  }
+  */
 
   async deletePub(pubid) {
     try {
@@ -271,8 +286,6 @@ export class PubcrawlService {
 
   async createComment(text, date, likes, pubid){
     try{
-      console.log("inside service createComment");
-      console.log(pubid);
       const form = new FormData();
       form.append("text", text);
       //form.append("city",city);

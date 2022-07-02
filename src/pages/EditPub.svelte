@@ -26,20 +26,22 @@
 
     /* TODOD: when going to edit pub on the map it should move to the current location */
     jq( document ).ready(function() {
-        console.log("current locations: ");
-        console.log(clickedLat);
-        console.log(clickedLng);
         pubsMap.moveToPub(4,0,0);
     });
     
 </script>
     
 <MainNavigator/>
-<section>
-    <div class="box">
-        <a class="button" on:click={goBack}><i class="fa-solid fa-arrow-left"></i></a>
-    </div>
-</section>
+<div class="box">
+    <div class="columns is-12">
+        <div class="column is-1">
+            <a class="button" on:click={goBack}><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+        <div class="column">
+            <span class="title">Edit Pub</span>
+        </div>
+    </div>  
+</div>
 <div class="columns">
     <div class="column has-text-centerd relative md:fixed sm:w-full md:w-10/12 p-2 h-screen">
         <PubForm bind:lat={clickedLat} bind:lng={clickedLng} id={params.pubid} newpub={false}/>

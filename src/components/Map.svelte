@@ -35,8 +35,6 @@ onMount(async () => {
 });
 
 async function showPubInfo(getPubId){
-    console.log("pub info insode map svelte");
-    console.log(getPubId);
     dispatch('pubMarkerClicked', {
         pub: getPubId,
     });
@@ -53,15 +51,10 @@ export function addPubMarker(pub) {
 }
 
 export function showPubOnMap(getPub){
-    console.log("inside map: showPubOnMap");
     map.moveTo(8, {lat: getPub.lat, lng: getPub.lng});
 }
 
 export function onMapClick(e) {
-            console.log("You clicked the map at position: ");
-            console.log("lat: "+e.latlng.lat);
-            console.log("lng:"+e.latlng.lng);
-
             dispatch('clickedLocations', {
                 lat: e.latlng.lat,
                 lng: e.latlng.lng,

@@ -22,9 +22,6 @@
 
     /* TODOD: when going to edit pub on the map it should move to the current location */
     jq( document ).ready(function() {
-        console.log("current locations: ");
-        console.log(clickedLat);
-        console.log(clickedLng);
         pubsMap.moveToPub(4,0,0);
     });
     

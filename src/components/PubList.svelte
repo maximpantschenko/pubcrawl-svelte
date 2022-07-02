@@ -46,7 +46,6 @@ import jq from 'jquery';
 
     async function getPubs(){
         if(nameNoSpace.length == 0 && cityNoSpace.length == 0 && countryNoSpace.length == 0){
-            console.log("don't search, get all or my pubs");
             if(allPubs){
                 //return all pubs
                 pubs = await pubcrawlService.getAllPubs();
@@ -55,7 +54,6 @@ import jq from 'jquery';
                 pubs = await pubcrawlService.getMyPubs();
             }
         }else{
-            console.log("search string");
             search();
         }
     }
@@ -65,10 +63,6 @@ import jq from 'jquery';
     }*/
 
     async function search(){
-        console.log("search for: ");
-        console.log("name: "+searchName);
-        console.log("city: "+searchCity);
-        console.log("country: "+searchCountry);
         let searchString = "";
         if(searchName.length!=0 && await checkString(searchName) !=null) {
             searchString += searchName;
@@ -93,7 +87,6 @@ import jq from 'jquery';
             jq("#searchInputCountry").addClass("is-danger");
             if(searchCountry.length==0) jq("#searchInputCountry").removeClass("is-danger");
         }
-        console.log(searchString);
         pubs = await pubcrawlService.getPubSearch(searchString);
     }
 
@@ -101,7 +94,6 @@ import jq from 'jquery';
         //   /^([a-zA-Z0-9\u0600-\u06FF\u0660-\u0669\u06F0-\u06F9 _.-]+)$/
         let pattern = /^([a-zA-Z0-9\u0600-\u06FF\u0660-\u0669\u06F0-\u06F9 _.-]+)$/;
         let result = string.match(pattern);
-        console.log(string+": is valid "+result);
         return result;
     }
 
@@ -135,6 +127,16 @@ import jq from 'jquery';
       </div>
     </div>
 </div>
+
+<div class="box">
+    <a href="/#/createpub" class="button is-primary is-fullwidth">
+        <span class="icon is-small">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span>Create New Pub</span>
+    </a>
+</div>
+
 {#each pubs as pub}
 <a href="/#/pub/{pub._id}">
     <div class="box">
@@ -173,14 +175,7 @@ import jq from 'jquery';
 </a>
 {/each}
 
-<div class="box">
-    <a href="/#/createpub" class="button is-primary is-fullwidth">
-        <span class="icon is-small">
-            <i class="fas fa-plus"></i>
-        </span>
-        <span>Create New Pub</span>
-    </a>
-</div>
+
 
 <style>
     .box{

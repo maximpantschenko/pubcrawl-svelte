@@ -37,8 +37,6 @@
 
     onMount(async () => {
         id = params.pubid;
-        console.log("id is");
-        console.log(params.pubid);
         loading.value = 15;
         pub = await pubcrawlService.getPubById(id);
         // /api/pubs/editable/{id}
@@ -56,12 +54,7 @@
         */
         canEdit = pub.canEdit;
         if(pub.categoriesMusic!=null) categoriesMusic = pub.categoriesMusic;
-        console.log(categoriesMusic);
-        console.log("get pub categoies");
-        console.log(pub);
         getComments();
-        console.log("comments");
-        console.log(comments);
     });
 
     async function getComments(){
@@ -72,15 +65,11 @@
     }
 
     async function addComment(){
-        console.log("in addComment");
         const text = jq("#comment-textarea").val();
-        console.log(text);
 
         const pubid = pub._id;
         const date = null;
         const likes = null;
-        console.log("addComment svelte");
-        console.log(text);
 
         let success = await pubcrawlService.createComment(text, date, likes, pubid);
         if(success){
@@ -117,7 +106,6 @@
     }
 
     async function deletePub(id){
-        console.log(id);
         let success = await pubcrawlService.deletePub(id);
         if(success){
             //push("/discover");
@@ -128,7 +116,6 @@
     }
 
     async function deleteComment(commentid){
-        console.log("delete comment: "+commentid);
         let success = await pubcrawlService.deleteComment(commentid);
         if(success){
             successMessage = "Deleted Comment successfully";
@@ -169,7 +156,11 @@
     <div class="box columns">
         <div class="column is-one-third">
             <figure class="image is-4by3">
-                <img src="{pub.img}" alt="Placeholder image">
+                {#if pub.img}
+                    <img src="{pub.img}" alt="Placeholder image">
+                {:else}
+                    <img src="/logo-on-frame.png" alt="Placeholder image">
+                {/if}
             </figure>
         </div>
         <div class="column">
@@ -198,7 +189,6 @@
                                     <span class="tag">{music.name}</span>
                                 {/each}
                             </div>
-                            <p style="font-size: 20px">Rating: </p>
                             <!--<div class="level-left">
                                 {#each categoriesMusic as music}
                                     <a class="level-item">
@@ -211,6 +201,15 @@
                                     </a>
                                 {/each}
                             </div>-->
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <a href="/#/gallery/{pub._id}" class="button is-link">Gallery</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="columns">
@@ -247,6 +246,7 @@
                         {comment.text}
                     </p>
                 </div>
+                <!--
                 <nav class="level is-mobile">
                     <div class="level-left">
                         <a class="level-item" on:click={() => addLike(comment._id)}>
@@ -254,7 +254,7 @@
                             <span style="margin-left: 5px">3</span>
                         </a>
                     </div>
-                </nav>
+                </nav>-->
                 </div>
                 <div class="media-right">
                     {#if pub.canEdit}
