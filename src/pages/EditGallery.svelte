@@ -35,6 +35,8 @@
     }
 
     async function getImages(){
+        images = [];
+        pub = null;
         loading.show = true;
         pub = await pubcrawlService.getPubById(params.pubid);
         pub.images.forEach(function(image){
