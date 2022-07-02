@@ -235,7 +235,7 @@
             <article class="media">
                 <figure class="media-left">
                     <p class="image is-32x32">
-                        <img src="/src/assets/user.png">
+                        <img src="/user.png">
                     </p>  
                 </figure>
                 <div class="media-content">
@@ -272,7 +272,7 @@
         <article class="media">
             <figure class="media-left">
                 <p class="image is-64x64">
-                    <img src="/src/assets/user.png">
+                    <img src="/user.png">
                 </p>
             </figure>
             <div class="media-content">

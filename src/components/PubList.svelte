@@ -143,7 +143,11 @@ import jq from 'jquery';
         <article class="media">
             <figure class="media-left">
             <p class="image is-128x128">
-                <img src="{pub.img}">
+                {#if pub.img}
+                        <img src="{pub.img}">
+                {:else}
+                        <img src="/logo-on-frame.png" alt="Placeholder image">
+                {/if}
             </p>
             </figure>
             <div class="media-content">
