@@ -7,7 +7,7 @@
 
 <div class="title p-3 is-flex">
   <div id="nav-logo">
-    <img src="/src/assets/logo-square.png">
+    <img src="/logo-square.png">
   </div>
   <div class="ml-4">PubCrawl</div>
 </div>

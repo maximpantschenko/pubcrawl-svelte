@@ -79,7 +79,7 @@ import standardImage from "/src/assets/svelte.png"
                 {#if pub.img}
                     <img src="{pub.img}" alt="Placeholder image">
                 {:else}
-                    <img src="/src/assets/logo-on-frame.png" alt="Placeholder image">
+                    <img src="/logo-on-frame.png" alt="Placeholder image">
                 {/if}
             </figure>
         </div>

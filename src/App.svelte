@@ -15,8 +15,8 @@ import Account from "./pages/Account.svelte";
 import { PubcrawlService } from "./services/pubcrawl-service";
 import { setContext } from "svelte";
 
-  //setContext("PubcrawlService", new PubcrawlService("https://calm-cove-09278.herokuapp.com"));
-  setContext("PubcrawlService", new PubcrawlService("http://localhost:4000"));
+  setContext("PubcrawlService", new PubcrawlService("https://calm-cove-09278.herokuapp.com"));
+  //setContext("PubcrawlService", new PubcrawlService("http://localhost:4000"));
   let routes = {
     "/": Home,
     "/login": Login,

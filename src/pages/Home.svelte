@@ -30,7 +30,7 @@
         </div>
         <div class="column">
                 <figure class="image">
-                    <img src="/src/assets/logo-on-frame.png">
+                    <img src="/logo-on-frame.png">
                   </figure>
         </div>
     </div>
