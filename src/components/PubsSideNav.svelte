@@ -1,7 +1,8 @@
 <script>
 import {push} from "svelte-spa-router";
 import standardImage from "/src/assets/svelte.png"
-
+// ######################### PubSideNav.svelte is not user at the moment #######################
+// ########## instead PubSideNavOne.svelte #########
     import {createEventDispatcher,getContext, onMount} from 'svelte';
 
     const dispatch = createEventDispatcher();
@@ -40,7 +41,6 @@ import standardImage from "/src/assets/svelte.png"
     }
 
     async function deletePub(id){
-        console.log(id);
         let success = await pubcrawlService.deletePub(id);
         if(success){
             //push("/discover");
@@ -58,7 +58,7 @@ import standardImage from "/src/assets/svelte.png"
                 {#if pub.img}
                     <img src="{pub.img}" alt="Placeholder image">
                 {:else}
-                    <img src="/src/assets/logo-on-frame.png" alt="Placeholder image">
+                    <img src="/logo-on-frame.png" alt="Placeholder image">
                 {/if}
             </figure>
         </div>

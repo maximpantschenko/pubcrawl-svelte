@@ -56,17 +56,6 @@ import standardImage from "/src/assets/svelte.png"
         console.log(pub);
         shortenLocations(shortPubs);
     }
-
-    async function deletePub(id){
-        console.log(id);
-        let success = await pubcrawlService.deletePub(id);
-        if(success){
-            //push("/discover");
-            location.reload();
-        }else{
-            errorMessage = "Couldn't delete the Pub";
-        }
-    }
 </script>
 
 <a class="button box" on:click={() => {getAllPubs()}}>
@@ -74,15 +63,17 @@ import standardImage from "/src/assets/svelte.png"
 </a>
 {#each shortPubs as pub}
     <div class="card">
-        <div class="card-image">
-            <figure class="image is-2by1">
-                {#if pub.img}
-                    <img src="{pub.img}" alt="Placeholder image">
-                {:else}
-                    <img src="/src/assets/logo-on-frame.png" alt="Placeholder image">
-                {/if}
-            </figure>
-        </div>
+        <a href="/#/pub/{pub._id}">
+            <div class="card-image">
+                <figure class="image is-2by1">
+                    {#if pub.img}
+                        <img src="{pub.img}" alt="Placeholder image">
+                    {:else}
+                        <img src="/logo-on-frame.png" alt="Placeholder image">
+                    {/if}
+                </figure>
+            </div>
+        </a>
         <div class="card-content">
             <div class="media">
             <div class="media-content">
@@ -103,20 +94,7 @@ import standardImage from "/src/assets/svelte.png"
             </div>
         </div>
         <footer class="card-footer">
-            <!--<a href="#" class="card-footer-item">Save</a>-->
             <a href="/#/pub/{pub._id}" class="card-footer-item button is-primary">Details</a>
-            <!--<a href="/#/editpub/{pub._id}" class="card-footer-item button is-primary">Edit</a>-->
-            <!--<button on:click={() => {deletePub(pub._id)}} class="card-footer-item button is-danger">Delete</button>-->
-            <!--<div class="field is-grouped is-grouped-right">
-                <p class="control">
-                    <button on:click={deletePub} class="button is-danger">Delete</button>
-                </p>
-                <p class="control">
-                    <a href="/#/editpub/{pub._id}" class="card-footer-item"> 
-                        <button class="button is-primary">Edit</button>
-                    </a>
-                </p>
-              </div>-->
         </footer>
     </div>
 {/each}

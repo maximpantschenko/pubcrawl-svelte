@@ -1,5 +1,5 @@
 <script>
-  import {push} from "svelte-spa-router";
+  import {pop,push} from "svelte-spa-router";
   import {getContext, onMount} from "svelte";
   import jq from 'jquery';
 
@@ -32,7 +32,6 @@
 
 
   onMount(async () => {
-      console.log("on mount first");
       categoriesMusicSelectable = await pubcrawlService.getCategoriesMusic();
       //const pubs = await pubcrawlService.getAllPubs();
       fileInput = jq(".file-input");
@@ -45,7 +44,6 @@
       });
 
       jq( document ).ready(function() {
-        console.log("document ready first");
         const categoryMusicItems = jq(".category-music-table .category-music-item");
         categoryMusicItems.each(function( index ) {
           const item = jq(this);
@@ -94,7 +92,6 @@
   }
 
   async function getPub(){
-    console.log("getPub first");
     let pub = await pubcrawlService.getPubById(id); 
     name = pub.name;
     description = pub.description;
@@ -117,8 +114,6 @@
   }
 
   async function updatePub(){
-    console.log("function updatePub catagoriesMusic");
-    console.log(categoriesMusic);
     loading.value = 30;
     loading.show = true;
     let success = await pubcrawlService.updatePub(id, name, description, city, country, lat, lng, img, categoriesMusic, files);
@@ -132,8 +127,6 @@
   }
 
   async function createPub(){
-    console.log("function create catagoriesMusic");
-    console.log(categoriesMusic);
     loading.value = 30;
     loading.show = true;
     let success = await pubcrawlService.createPub(name, description, city, country, lat, lng, img, categoriesMusic, files);
@@ -154,11 +147,15 @@
   async function deletePub(){
     let success = await pubcrawlService.deletePub(id);
     if(success){
-      push("/discover");
+      push("/pubs");
     }else{
       errorMessage = "Couldn't delete the Pub";
     }
   }
+
+  async function goBack(){
+        pop();
+    }
 
   if(!newpub) getPub();
 </script>
@@ -252,6 +249,9 @@
     </div>
   
     <div class="field">
+      <label class="label">Click on the map to set Location</label>
+    </div>
+    <div class="field">
       <label class="label">Latitude</label>
       <div class="control">
         <input class="input input-lat" type="text" placeholder="Latitude" name="lat" bind:value="{lat}">
@@ -264,6 +264,13 @@
         <input class="input input-lng" type="text" placeholder="Longitude" name="lng" bind:value="{lng}">
       </div>
     </div>
+
+    <div class="filed">
+      <label class="label">Image Gallery</label>
+      <div class="control">
+        <a href="/#/editgallery/{id}" class="button">Edit Gallery</a>
+      </div>
+    </div>
   
     {#if loading.show}
       <!--<progress class="progress is-primary" value="{loading.value}" max="100">15%</progress>-->
@@ -273,11 +280,11 @@
 
     <div class="field is-grouped is-grouped-right">
       <p class="control">
-        <button class="button is-light">Cancel</button>
+        <a on:click={goBack} class="button is-light">Cancel</a>
       </p>
       {#if !newpub}
         <p class="control">
-          <button on:click={deletePub} class="button is-danger">Delete</button>
+          <a on:click={deletePub} class="button is-danger">Delete</a>
         </p>
       {/if}
       <p class="control">

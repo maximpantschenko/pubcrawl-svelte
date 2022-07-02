@@ -1,20 +1,11 @@
 <script>
     import MainNavigator from '../components/MainNavigator.svelte';
-    import {getContext, onMount} from "svelte";
     import jq from 'jquery';
     import { push,pop } from 'svelte-spa-router';
 
     if(localStorage.pubcrawl == null){
         push("/login");
     }
-
-    let user = null;
-
-    const pubcrawlService = getContext("PubcrawlService");
-
-    onMount(async () => {
-        const user = await pubcrawlService.getCurrentUser();
-    });
 </script>
 
 <MainNavigator/>
@@ -30,7 +21,7 @@
         </div>
         <div class="column">
                 <figure class="image">
-                    <img src="/src/assets/logo-on-frame.png">
+                    <img src="/logo-on-frame.png">
                   </figure>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <script context="module">
     import jq from 'jquery';
 // Add a click event on buttons to open a specific modal
-
+// ################### PubInfo.svelte is not used at the moment ###################
 let pubInfoDialog = null;
 let pub = {
     name: '',
@@ -14,8 +14,6 @@ let pub = {
 }
 
 export function openPubInfo(getPub){
-    console.log("getPub");
-    console.log(getPub.name);
     pub = getPub;
     setValuesInUi();
     pubInfoDialog.classList.add('is-active');
@@ -38,8 +36,6 @@ function setValuesInUi(){
 document.addEventListener('DOMContentLoaded', () => {
     const modal = "modal-js-example";
     pubInfoDialog = document.getElementById(modal);
-    console.log("pubinfodialog");
-    console.log(pubInfoDialog);
 
   // Add a click event on various child elements to close the parent modal
   (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {

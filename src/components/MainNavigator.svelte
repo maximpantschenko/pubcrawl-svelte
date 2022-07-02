@@ -10,8 +10,6 @@
     onMount(async () => {
       const getNavUser = await pubcrawlService.getCurrentUser();
       navCurrentUser = getNavUser.firstName + " " + getNavUser.lastName;
-      console.log("navigation user");
-      console.log(navCurrentUser);
     });
 
     jq(document).ready(function() {
@@ -45,13 +43,6 @@
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <!--<a href="/#/home" class="navbar-item">
-          Home
-        </a>-->
-  
-        <!--<a href="/#/dashboard" class="navbar-item">
-          Dashboard
-        </a>-->
   
         <a href="/#/discover" class="navbar-item">
           Map
@@ -71,6 +62,10 @@
             </a>
           </div>
         </div>
+
+        <a href="/#/dashboard" class="navbar-item">
+          Charts
+        </a>
       </div>
   
       <div class="navbar-end">
@@ -88,11 +83,6 @@
             </a>
           </div>
 
-          <!--<div class="buttons">
-            <a href="/#/logout"class="button is-danger">
-              <strong>Logout</strong>
-            </a>
-          </div>-->
         </div>
       </div>
     </div>

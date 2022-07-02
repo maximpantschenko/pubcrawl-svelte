@@ -65,8 +65,16 @@ export class LeafletMap {
   }
 
   addMarker(location, popupText = "", layerTitle = "default") {
+    var pointerIcon = L.icon({
+      iconUrl: '/beer-icon.png',
+      iconSize:     [38, 28], // size of the icon
+      //shadowSize:   [50, 64], // size of the shadow
+      iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
+      //shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor:  [-3, -76], // point from which the popup should open relative to the iconAnchor
+    });
     let group = {};
-    let marker = L.marker([location.lat, location.lng]);
+    let marker = L.marker([location.lat, location.lng], {icon: pointerIcon});
     //marker.on('hover', () => {console.log("marker was clicked")});
     if (popupText) {
       var popup = L.popup({autoClose: false, closeOnClick: true});
