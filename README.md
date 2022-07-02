@@ -1,48 +1,71 @@
-# Svelte + Vite
+# pubcrawl
 
-This template should help get you started developing with Svelte in Vite.
+--------------------------
+Svelte Application
+--------------------------
 
-## Recommended IDE Setup
+Description: PubCrawl is a Community where Users can Discover Pubs in the whole World. 
+__________________________________________
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+Connection to API
+-
 
-## Need an official Svelte framework?
+This Application is using the PubCrawl API
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+General
+-
 
-## Technical considerations
 
-**Why use this over SvelteKit?**
+- Sign Up
+- Login
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
+Account:
+-
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+- Editing Own Account details
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+Pubs:
+-
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+- Pub details
+- Functionalities:
+  - Adding Pub
+  - Adding Images
+  - Updating Pub
+  - Deleting Pub
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+Map:
+-
 
-**Why include `.vscode/extensions.json`?**
+- Functionalities:
+  - Markers showing Location of the Pubs
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+Categories:
+-
 
-**Why enable `checkJs` in the JS template?**
+- Music
+- Functionalities:
+  - Adding Category to Pub
+  - Deleting Category from Pub
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+Comments:
+-
 
-**Why is HMR not preserving my local component state?**
+- Functionalities:
+  - Adding Comments to Pub
+  - Deleting Comments from Pub
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
+Gallery:
+-
 
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+- Functionalites:
+  - Showing Gallery
+  - Adding Image to Gallery
 
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+Charts:
+-
+
+- Number of Pubs by:
+  - User
+  - City
+  - Country
