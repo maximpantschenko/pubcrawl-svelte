@@ -49,9 +49,9 @@
           Home
         </a>-->
   
-        <!--<a href="/#/dashboard" class="navbar-item">
+        <a href="/#/dashboard" class="navbar-item">
           Dashboard
-        </a>-->
+        </a>
   
         <a href="/#/discover" class="navbar-item">
           Map
